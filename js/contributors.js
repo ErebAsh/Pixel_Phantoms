@@ -8,7 +8,7 @@ let contributorsData = [];
 let currentPage = 1;
 const itemsPerPage = 8;
 
-// Point System Weights (Strict PR Logic)
+// Point System Weights
 const POINTS = {
     L3: 11,
     L2: 5,
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. Master Initialization Function
 async function initData() {
     try {
-        // Fetch Repo Info, Contributors, and Pull Requests (last 100)
         const [repoRes, contributorsRes] = await Promise.all([
             fetch(API_BASE),
             fetch(`${API_BASE}/contributors?per_page=100`)
@@ -33,7 +32,6 @@ async function initData() {
         const repoData = await repoRes.json();
         const rawContributors = await contributorsRes.json();
         
-        // Fetch Pull Requests (Recursive) to capture history
         const rawPulls = await fetchAllPulls();
 
         processData(repoData, rawContributors, rawPulls);
@@ -65,54 +63,35 @@ function processData(repoData, contributors, pulls) {
     const leadAvatar = document.getElementById('lead-avatar');
     const statsMap = {};
 
-    // A. Calculate Points from PRs
     let totalProjectPRs = 0;
     let totalProjectPoints = 0;
 
     pulls.forEach(pr => {
-        // Only count merged PRs
         if (!pr.merged_at) return; 
 
         const user = pr.user.login;
-        
-        if (!statsMap[user]) {
-            statsMap[user] = { prs: 0, points: 0 };
-        }
+        if (!statsMap[user]) statsMap[user] = { prs: 0, points: 0 };
 
         statsMap[user].prs++;
         totalProjectPRs++;
 
         let prPoints = 0;
         let hasLevel = false;
-
         pr.labels.forEach(label => {
             const name = label.name.toLowerCase();
-            if (name.includes('level 3') || name.includes('level-3')) {
-                prPoints += POINTS.L3;
-                hasLevel = true;
-            } else if (name.includes('level 2') || name.includes('level-2')) {
-                prPoints += POINTS.L2;
-                hasLevel = true;
-            } else if (name.includes('level 1') || name.includes('level-1')) {
-                prPoints += POINTS.L1;
-                hasLevel = true;
-            }
+            if (name.includes('level 3') || name.includes('level-3')) { prPoints += POINTS.L3; hasLevel = true; }
+            else if (name.includes('level 2') || name.includes('level-2')) { prPoints += POINTS.L2; hasLevel = true; }
+            else if (name.includes('level 1') || name.includes('level-1')) { prPoints += POINTS.L1; hasLevel = true; }
         });
-
         if (!hasLevel) prPoints += POINTS.DEFAULT;
-
         statsMap[user].points += prPoints;
         totalProjectPoints += prPoints;
     });
 
-    // B. Merge with Contributor Profile Data
     contributorsData = contributors.map(c => {
         const login = c.login;
         const userStats = statsMap[login] || { prs: 0, points: 0 };
         
-        // FIX: Strict Point Calculation (No Commits Added)
-        const totalScore = userStats.points;
-
         if (login.toLowerCase() === REPO_OWNER.toLowerCase()) {
             if (leadAvatar) leadAvatar.src = c.avatar_url;
         }
@@ -120,17 +99,14 @@ function processData(repoData, contributors, pulls) {
         return {
             ...c,
             prs: userStats.prs,
-            points: totalScore 
+            points: userStats.points 
         };
     });
 
-    // C. Filter Lead & Sort
     contributorsData = contributorsData
         .filter(c => c.login.toLowerCase() !== REPO_OWNER.toLowerCase())
-        // Sort by Points (Desc), then by Commits (Desc) as tie-breaker
         .sort((a, b) => (b.points - a.points) || (b.contributions - a.contributions)); 
 
-    // D. Update DOM Stats
     updateGlobalStats(
         contributors.length, 
         totalProjectPRs, 
@@ -139,7 +115,6 @@ function processData(repoData, contributors, pulls) {
         repoData.forks_count
     );
 
-    // E. Render Grid
     renderContributors(1);
 }
 
@@ -186,7 +161,7 @@ function renderContributors(page) {
         const card = document.createElement('div');
         card.className = `contributor-card ${league.tier}`;
         
-        // Click Event
+        // Event Listener for Modal
         card.addEventListener('click', () => openModal(contributor, league, globalRank));
 
         card.innerHTML = `
@@ -205,20 +180,12 @@ function renderContributors(page) {
 function renderPaginationControls(page) {
     const container = document.getElementById('pagination-controls');
     const totalPages = Math.ceil(contributorsData.length / itemsPerPage);
-
-    if (totalPages <= 1) {
-        container.innerHTML = '';
-        return;
-    }
+    if (totalPages <= 1) { container.innerHTML = ''; return; }
 
     container.innerHTML = `
-        <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changePage(${page - 1})">
-            <i class="fas fa-chevron-left"></i> Prev
-        </button>
+        <button class="pagination-btn" ${page === 1 ? 'disabled' : ''} onclick="changePage(${page - 1})"><i class="fas fa-chevron-left"></i> Prev</button>
         <span class="page-info">Page ${page} of ${totalPages}</span>
-        <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changePage(${page + 1})">
-            Next <i class="fas fa-chevron-right"></i>
-        </button>
+        <button class="pagination-btn" ${page === totalPages ? 'disabled' : ''} onclick="changePage(${page + 1})">Next <i class="fas fa-chevron-right"></i></button>
     `;
 }
 
@@ -227,18 +194,24 @@ window.changePage = function(newPage) {
     renderContributors(newPage);
 };
 
-// 5. Modal Logic
+// 5. Modal Logic - UPDATED
 function openModal(contributor, league, rank) {
     const modal = document.getElementById('contributor-modal');
-    
+    if(!modal) return;
+
+    // Header Info
     document.getElementById('modal-avatar').src = contributor.avatar_url;
     document.getElementById('modal-name').textContent = contributor.login;
-    document.getElementById('modal-tier-text').textContent = `ID: ${contributor.id}`; 
-    
+    document.getElementById('modal-id').textContent = `ID: ${contributor.id}`;
+    document.getElementById('modal-league-badge').textContent = league.label; // Set League Text
+
+    // Stats
     document.getElementById('modal-rank').textContent = `#${rank}`;
     document.getElementById('modal-score').textContent = contributor.points;
-    document.getElementById('modal-league').textContent = league.label.split(' ')[0]; 
+    document.getElementById('modal-prs').textContent = contributor.prs;
+    document.getElementById('modal-commits').textContent = contributor.contributions;
 
+    // Links
     const prLink = `https://github.com/${REPO_OWNER}/${REPO_NAME}/pulls?q=is%3Apr+author%3A${contributor.login}`;
     document.getElementById('modal-pr-link').href = prLink;
     document.getElementById('modal-profile-link').href = contributor.html_url;
@@ -250,7 +223,6 @@ window.closeModal = function() {
     document.getElementById('contributor-modal').classList.remove('active');
 }
 
-// Close on outside click
 document.getElementById('contributor-modal').addEventListener('click', (e) => {
     if(e.target.id === 'contributor-modal') closeModal();
 });
@@ -261,27 +233,21 @@ async function fetchRecentActivity() {
         const response = await fetch(`${API_BASE}/commits?per_page=10`);
         const commits = await response.json();
         const activityList = document.getElementById('activity-list');
-        
         if(activityList) {
             activityList.innerHTML = '';
             commits.forEach(item => {
                 const date = new Date(item.commit.author.date).toLocaleDateString();
                 const message = item.commit.message;
                 const author = item.commit.author.name;
-
                 const row = document.createElement('div');
                 row.className = 'activity-item';
                 row.innerHTML = `
                     <div class="activity-marker"></div>
-                    <div class="commit-msg">
-                        <span style="color: var(--accent-color)">${author}</span>: ${message}
-                    </div>
+                    <div class="commit-msg"><span style="color: var(--accent-color)">${author}</span>: ${message}</div>
                     <div class="commit-date">${date}</div>
                 `;
                 activityList.appendChild(row);
             });
         }
-    } catch (error) {
-        console.error('Error fetching activity:', error);
-    }
+    } catch (e) { console.error(e); }
 }

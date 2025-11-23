@@ -108,12 +108,10 @@
             <button class="close-modal" onclick="closeModal()">&times;</button>
             
             <div class="modal-header">
-                <div class="modal-avatar-wrapper">
-                    <img id="modal-avatar" src="" alt="Contributor">
-                    <div id="modal-badge-icon" class="modal-rank-icon"></div>
-                </div>
+                <img id="modal-avatar" src="" alt="Contributor">
                 <h2 id="modal-name">Username</h2>
                 <p id="modal-id" class="modal-subtitle">ID: --</p>
+                <div id="modal-league-badge" class="modal-league-tag"></div>
             </div>
 
             <div class="modal-stats-row">
@@ -122,12 +120,16 @@
                     <span class="stat-number" id="modal-rank">#0</span>
                 </div>
                 <div class="modal-stat">
-                    <span class="stat-label">Contribution Score</span>
+                    <span class="stat-label">Points</span>
                     <span class="stat-number" id="modal-score">0</span>
                 </div>
                 <div class="modal-stat">
-                    <span class="stat-label">League</span>
-                    <span class="stat-number" id="modal-league">-</span>
+                    <span class="stat-label">PRs</span>
+                    <span class="stat-number" id="modal-prs">0</span>
+                </div>
+                <div class="modal-stat">
+                    <span class="stat-label">Commits</span>
+                    <span class="stat-number" id="modal-commits">0</span>
                 </div>
             </div>
 
