@@ -106,16 +106,17 @@
 /* --- CONTRIBUTORS GRID --- */
 .contributors-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
     margin-bottom: 40px;
 }
 
+/* Base Card Style */
 .contributor-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 25px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -123,40 +124,233 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
 }
 
 .contributor-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow);
-    border-color: var(--accent-color);
 }
 
 .contributor-card img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 5px;
+    border: 3px solid transparent;
 }
 
 .cont-name {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
+/* Base Badge Style */
 .cont-commits-badge {
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    border-radius: 12px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
     background: rgba(0, 170, 255, 0.1);
-    color: var(--accent-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-/* Badges for Tiers */
-.badge-gold { background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.3); }
-.badge-silver { background: rgba(192, 192, 192, 0.15); color: #C0C0C0; border: 1px solid rgba(192, 192, 192, 0.3); }
-.badge-bronze { background: rgba(205, 127, 50, 0.15); color: #CD7F32; border: 1px solid rgba(205, 127, 50, 0.3); }
+/* --- SHINING ANIMATION --- */
+@keyframes shine-effect {
+    0% { background-position: -200%; }
+    100% { background-position: 200%; }
+}
+
+/* =========================================
+   1. LEAGUE CARD STYLES (GOLD, SILVER, BRONZE)
+   ========================================= */
+
+/* --- GOLD LEAGUE --- */
+.contributor-card.tier-gold {
+    border: 2px solid #FFD700;
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.08), var(--card-bg));
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+.contributor-card.tier-gold:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    transform: translateY(-8px) scale(1.02);
+}
+.contributor-card.tier-gold img {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+.contributor-card.tier-gold .cont-name {
+    color: #FFD700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+/* Gold Badge - Black Text */
+.contributor-card.tier-gold .cont-commits-badge {
+    background: linear-gradient(90deg, #FFD700, #FFF8DC, #FFD700);
+    background-size: 200% auto;
+    color: #000000 !important; /* FORCE BLACK TEXT */
+    -webkit-text-fill-color: #000000;
+    border: 1px solid #FFD700;
+    font-weight: 800;
+    animation: shine-effect 3s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+/* --- SILVER LEAGUE --- */
+.contributor-card.tier-silver {
+    border: 2px solid #C0C0C0;
+    background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), var(--card-bg));
+    box-shadow: 0 0 20px rgba(192, 192, 192, 0.25);
+}
+.contributor-card.tier-silver:hover {
+    box-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
+    transform: translateY(-8px) scale(1.02);
+}
+.contributor-card.tier-silver img {
+    border-color: #C0C0C0;
+    box-shadow: 0 0 15px rgba(192, 192, 192, 0.4);
+}
+.contributor-card.tier-silver .cont-name {
+    color: #E0E0E0;
+    text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+}
+/* Silver Badge - Black Text */
+.contributor-card.tier-silver .cont-commits-badge {
+    background: linear-gradient(90deg, #C0C0C0, #FFFFFF, #C0C0C0);
+    background-size: 200% auto;
+    color: #000000 !important; /* FORCE BLACK TEXT */
+    -webkit-text-fill-color: #000000;
+    border: 1px solid #C0C0C0;
+    font-weight: 800;
+    animation: shine-effect 3s linear infinite;
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+}
+
+/* --- BRONZE LEAGUE --- */
+.contributor-card.tier-bronze {
+    border: 2px solid #CD7F32;
+    background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), var(--card-bg));
+    box-shadow: 0 0 20px rgba(205, 127, 50, 0.25);
+}
+.contributor-card.tier-bronze:hover {
+    box-shadow: 0 0 30px rgba(205, 127, 50, 0.5);
+    transform: translateY(-8px) scale(1.02);
+}
+.contributor-card.tier-bronze img {
+    border-color: #CD7F32;
+    box-shadow: 0 0 15px rgba(205, 127, 50, 0.4);
+}
+.contributor-card.tier-bronze .cont-name {
+    color: #CD7F32;
+}
+/* Bronze Badge - Black Text */
+.contributor-card.tier-bronze .cont-commits-badge {
+    background: linear-gradient(90deg, #CD7F32, #FFDAB9, #CD7F32);
+    background-size: 200% auto;
+    color: #000000 !important; /* FORCE BLACK TEXT */
+    -webkit-text-fill-color: #000000;
+    border: 1px solid #CD7F32;
+    font-weight: 800;
+    animation: shine-effect 3s linear infinite;
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+}
+
+/* --- DEFAULT CONTRIBUTOR (Normal) --- */
+.contributor-card.tier-contributor {
+    border: 1px solid var(--border-color);
+}
+.contributor-card.tier-contributor:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow);
+}
+/* Default Badge - Normal Text */
+.contributor-card.tier-contributor .cont-commits-badge {
+    color: var(--text-secondary);
+    background: rgba(0, 170, 255, 0.1);
+}
+
+/* =========================================
+   2. DYNAMIC MODAL STYLES (Based on League)
+   ========================================= */
+
+/* --- GOLD MODAL THEME --- */
+.modal-container.tier-gold {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+.modal-container.tier-gold .modal-header img {
+    border-color: #FFD700;
+}
+.modal-container.tier-gold .modal-league-tag {
+    border-color: #FFD700;
+    color: #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+}
+.modal-container.tier-gold .primary-btn {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    border: none;
+    font-weight: 800;
+}
+.modal-container.tier-gold .secondary-btn:hover {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+/* --- SILVER MODAL THEME --- */
+.modal-container.tier-silver {
+    border: 2px solid #C0C0C0;
+    box-shadow: 0 0 30px rgba(192, 192, 192, 0.2);
+}
+.modal-container.tier-silver .modal-header img {
+    border-color: #C0C0C0;
+}
+.modal-container.tier-silver .modal-league-tag {
+    border-color: #C0C0C0;
+    color: #C0C0C0; /* Silver Text */
+    background: rgba(192, 192, 192, 0.1);
+}
+.modal-container.tier-silver .primary-btn {
+    background: linear-gradient(135deg, #E0E0E0, #B0B0B0);
+    color: #000;
+    border: none;
+    font-weight: 800;
+}
+.modal-container.tier-silver .secondary-btn:hover {
+    border-color: #C0C0C0;
+    color: #C0C0C0;
+}
+
+/* --- BRONZE MODAL THEME --- */
+.modal-container.tier-bronze {
+    border: 2px solid #CD7F32;
+    box-shadow: 0 0 30px rgba(205, 127, 50, 0.2);
+}
+.modal-container.tier-bronze .modal-header img {
+    border-color: #CD7F32;
+}
+.modal-container.tier-bronze .modal-league-tag {
+    border-color: #CD7F32;
+    color: #CD7F32;
+    background: rgba(205, 127, 50, 0.1);
+}
+.modal-container.tier-bronze .primary-btn {
+    background: linear-gradient(135deg, #CD7F32, #A0522D);
+    color: #fff;
+    border: none;
+    font-weight: 800;
+}
+.modal-container.tier-bronze .secondary-btn:hover {
+    border-color: #CD7F32;
+    color: #CD7F32;
+}
 
 /* --- ACTIVITY LIST --- */
 .activity-container {
@@ -234,7 +428,7 @@
     margin: 0;
 }
 
-/* --- MODAL --- */
+/* --- MODAL BASE --- */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -409,145 +603,4 @@
 .text-center {
     text-align: center;
     transform: translateY(-2px);
-}
-
-
-/* Individual contributor card */
-.contributor-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease-in-out;
-}
-
-
-
-.contributor-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 15px rgba(0, 170, 255, 0.3)
-}
-
-/* Fix image sizes */
-.contributor-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;     /* Makes images equal */
-    margin-bottom: 10px;
-}
-
-/* Improve contributor card text styling */
-.cont-name {
-    display: block;
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cont-commits-badge {
-    display: block;
-    margin-top: 6px;
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-.cont-commits-badge::before {
-    content: "";
-    display: block;
-    height: 1px;
-    width: 40%;
-    background: var(--border-color);
-    margin: 6px auto;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .terms-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .terms-sidebar {
-        position: static;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .terms-sidebar {
-        grid-template-columns: 1fr;
-    }
-    
-    .term-card {
-        flex-direction: column;
-        padding: 20px;
-    }
-    
-    .term-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-    
-    .terms-header h1 {
-        font-size: 2.2rem;
-    }
-}
-.stats-grid{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    grid-template-columns: repeat(auto-fit,minmax(220px, 1fr));
-    gap:10px;
-    margin-top: 40px;
-}
-
-.stats-card{
-    width: 160px;
-    height:110px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease-in-out;
-}
-
-
-.stats-card:hover {
-    transform: translateY(-4px);
-}
-
-.stats-card h3 {
-    font-size: 14px;
-    color: var(--text-primary);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-}
-
-.stats-card p {
-    font-size:26px;
-    font-weight: 800;
-    margin:0;
-    color: var(--accent-color);
 }

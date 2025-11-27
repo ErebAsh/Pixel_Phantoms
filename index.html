@@ -206,26 +206,62 @@
                 </div>
             </div>
         </section>
+    </div>
 
         <section class="leaderboard-preview">
             <div class="container">
                 <h2 class="section-header-glitch" data-text="TOP_AGENTS">TOP_AGENTS</h2>
-                <div class="lb-grid">
-                    <div class="lb-row head">
-                        <span>Rank</span><span>Codename</span><span>XP</span>
+        
+                <div class="lb-layout">
+                    <div class="lb-main">
+                        <div class="lb-header">
+                            <span>RANK</span>
+                            <span>CODENAME</span>
+                            <span class="text-right">EXP</span>
+                        </div>
+                        <div class="lb-rows-container" id="lb-rows">
+                            <div class="lb-loader">Scanning database...</div>
+                        </div>
                     </div>
-                    <div class="lb-row gold">
-                        <span>#1</span><span>@GhostCoder</span><span>9040 XP</span>
-                    </div>
-                    <div class="lb-row silver">
-                        <span>#2</span><span>@BinaryWitch</span><span>8200 XP</span>
-                    </div>
-                    <div class="lb-row bronze">
-                        <span>#3</span><span>@NullPtr</span><span>7800 XP</span>
+
+            <div class="league-system">
+                <h3 class="sys-header"><i class="fas fa-unlock-alt"></i> CLEARANCE_LEVELS</h3>
+                
+                <div class="league-card gold">
+                    <div class="league-icon"><i class="fas fa-crown"></i></div>
+                    <div class="league-info">
+                        <h4>Gold Class <span class="xp-req">15,000+ XP</span></h4>
+                        <p>Unlock: Core Team Access & Letter of Recommendation</p>
                     </div>
                 </div>
-                <p class="lb-footer">> Compete in Hackathons to gain XP.</p>
+
+                <div class="league-card silver">
+                    <div class="league-icon"><i class="fas fa-tshirt"></i></div>
+                    <div class="league-info">
+                        <h4>Silver Class <span class="xp-req">7,500+ XP</span></h4>
+                        <p>Unlock: Exclusive Pixel Phantoms Merch</p>
+                    </div>
+                </div>
+
+                <div class="league-card bronze">
+                    <div class="league-icon"><i class="fab fa-discord"></i></div>
+                    <div class="league-info">
+                        <h4>Bronze Class <span class="xp-req">3,000+ XP</span></h4>
+                        <p>Unlock: VIP Discord Role & Profile Badge</p>
+                    </div>
+                </div>
+                
+                <div class="league-card rookie">
+                    <div class="league-icon"><i class="fas fa-code"></i></div>
+                    <div class="league-info">
+                        <h4>Rookie <span class="xp-req">0+ XP</span></h4>
+                        <p>Status: Active Contributor</p>
+                    </div>
+                </div>
             </div>
+
+        <p class="lb-footer">> Contributions are calculated based on merged PR complexity.</p>
+    </div>
         </section>
 
         <section class="functional-grid">
@@ -261,6 +297,7 @@
     <script src="js/theme.js"></script>
     <script src="js/back-to-top.js"></script>
     <script src="js/home-gsap.js"></script>
+    <script src="js/home-leaderboard.js"></script>
 
 </body>
 </html>
