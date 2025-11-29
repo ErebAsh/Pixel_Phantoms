@@ -19,12 +19,5 @@
         "location": "Innovation Lab",
         "description": "A 48-hour hackathon focused on building sustainable tech solutions.",
         "link": "#"
-    },
-    {
-        "title": "CyberSecurity Bootcamp",
-        "date": "March 05, 2026",
-        "location": "Computer Center",
-        "description": "Hands-on workshop on ethical hacking, network security, and cryptography.",
-        "link": "#"
     }
 ]

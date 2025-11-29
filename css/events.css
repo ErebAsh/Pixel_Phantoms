@@ -243,7 +243,10 @@
 }
 
 /* Countdown Styles */
-.countdown-hidden { display: none; }
+#countdown-section.countdown-hidden {
+    display: none !important;
+}
+
 #countdown-section {
     margin-top: 40px;
     padding: 30px;
@@ -251,8 +254,9 @@
     border-radius: 20px;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
-    display: inline-block;
+    display: inline-block; /* This was overriding the previous .countdown-hidden class */
 }
+
 #countdown-section h3 { margin: 0 0 20px 0; color: var(--text-secondary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
 #countdown-timer { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
 .time-unit { display: flex; flex-direction: column; align-items: center; position: relative; }
