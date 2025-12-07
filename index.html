@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/loading-states.css">
     <link rel="stylesheet" href="css/home-gsap.css"> 
     <link rel="stylesheet" href="css/back-to-top.css">
+    <link rel="stylesheet" href="css/stats-widget.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -288,6 +289,88 @@
             </div>
         </section>
 
+         <!-- QUICK STATS WIDGET FOR HOME PAGE -->
+        <section class="quick-stats-widget" id="home-quick-stats">
+            <div class="widget-header">
+                <h2 class="widget-title">
+                    <i class="fas fa-chart-line"></i> COMMUNITY SNAPSHOT
+                </h2>
+                <button class="widget-refresh" onclick="refreshHomeStats()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card" onclick="window.location.href='pages/projects.html'">
+                    <div class="stat-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="stat-value" id="home-active-projects">8</h3>
+                    <p class="stat-label">Active Projects</p>
+                    <div class="stat-trend">
+                        <span class="trend-up">↑ 12% this week</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card" onclick="window.location.href='pages/events.html'">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="stat-value" id="home-upcoming-events">3</h3>
+                    <p class="stat-label">Upcoming Events</p>
+                    <div class="stat-trend">
+                        <span class="trend-neutral">3 new this month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card" onclick="window.open('https://github.com/sayeeg-11/Pixel_Phantoms', '_blank')">
+                    <div class="stat-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="stat-value" id="home-recent-contributions">50+</h3>
+                    <p class="stat-label">Contributions</p>
+                    <div class="stat-trend">
+                        <span class="trend-up">↑ 25% this week</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <h3 class="activity-title">
+                    <i class="fas fa-history"></i> RECENT COMMUNITY ACTIVITY
+                </h3>
+                <ul class="activity-list" id="home-recent-activity">
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>Community reached 50+ active members milestone</p>
+                            <span class="activity-time">Yesterday</span>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>New project "Neural Nexus" launched</p>
+                            <span class="activity-time">3 days ago</span>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>Winter Code Jam 2025 registrations opened</p>
+                            <span class="activity-time">1 week ago</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <nav class="functional-grid" aria-label="Quick Links">
             <a href="pages/help.html" class="func-card">
                 <div class="func-icon"><i class="fas fa-life-ring" aria-hidden="true"></i></div>
@@ -337,6 +420,78 @@
     <script src="js/scripts.js"></script>
     <script src="js/touch-support.js"></script>
     <script src="js/loading-states.js"></script>
+
+        <script>
+        // Home page quick stats functionality
+        function refreshHomeStats() {
+            const btn = document.querySelector('#home-quick-stats .widget-refresh i');
+            const projectsCount = document.getElementById('home-active-projects');
+            const eventsCount = document.getElementById('home-upcoming-events');
+            const contributionsCount = document.getElementById('home-recent-contributions');
+            
+            btn.classList.add('spinning');
+            btn.parentElement.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Update with random data for demo
+                const newProjects = Math.floor(Math.random() * 3) + 8;
+                const newEvents = Math.floor(Math.random() * 2) + 3;
+                const newContributions = Math.floor(Math.random() * 10) + 50;
+                
+                // Animate numbers
+                animateNumber(projectsCount, newProjects);
+                animateNumber(eventsCount, newEvents);
+                animateNumber(contributionsCount, newContributions);
+                
+                btn.classList.remove('spinning');
+                btn.parentElement.disabled = false;
+                
+                // Show success animation
+                const widget = document.getElementById('home-quick-stats');
+                widget.style.boxShadow = '0 0 20px rgba(0, 255, 136, 0.3)';
+                setTimeout(() => {
+                    widget.style.boxShadow = '';
+                }, 1000);
+                
+                // Add activity log
+                const activityList = document.getElementById('home-recent-activity');
+                const newActivity = document.createElement('li');
+                newActivity.className = 'activity-item';
+                newActivity.innerHTML = `
+                    <div class="activity-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p>Stats manually refreshed</p>
+                        <span class="activity-time">Just now</span>
+                    </div>
+                `;
+                activityList.insertBefore(newActivity, activityList.firstChild);
+                
+                // Keep only 3 items
+                if (activityList.children.length > 3) {
+                    activityList.removeChild(activityList.lastChild);
+                }
+                
+            }, 1000);
+        }
+        
+        function animateNumber(element, targetValue) {
+            const current = parseInt(element.textContent) || 0;
+            const increment = targetValue > current ? 1 : -1;
+            let currentValue = current;
+            
+            const interval = setInterval(() => {
+                currentValue += increment;
+                element.textContent = currentValue;
+                
+                if (currentValue === targetValue) {
+                    clearInterval(interval);
+                }
+            }, 20);
+        }
+    </script>
 
 </body>
 </html>

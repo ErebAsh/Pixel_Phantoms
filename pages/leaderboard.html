@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/back-to-top.css">
     
     <link rel="stylesheet" href="../css/leaderboard.css">
+    <link rel="stylesheet" href="../css/stats-widget.css">
     
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -54,6 +55,72 @@
                     </button>
                 </div>
             </header>
+
+            <!-- QUICK STATS WIDGET -->
+            <div class="quick-stats-widget" id="quick-stats-widget">
+                <div class="widget-header">
+                    <h2 class="widget-title">
+                        <i class="fas fa-tachometer-alt"></i> QUICK STATS DASHBOARD
+                    </h2>
+                    <button class="widget-refresh" id="refresh-stats">
+                        <i class="fas fa-sync-alt"></i> Refresh Stats
+                    </button>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card" id="active-projects-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="stat-value" id="active-projects-count">0</h3>
+                        <p class="stat-label">Active Projects</p>
+                        <div class="stat-trend">
+                            <span class="trend-up">↑ 12% this week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" id="upcoming-events-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="stat-value" id="upcoming-events-count">0</h3>
+                        <p class="stat-label">Upcoming Events</p>
+                        <div class="stat-trend">
+                            <span class="trend-neutral">3 new this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" id="recent-contributions-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3 class="stat-value" id="recent-contributions-count">0</h3>
+                        <p class="stat-label">Recent Contributions</p>
+                        <div class="stat-trend">
+                            <span class="trend-up">↑ 25% this week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-activity">
+                    <h3 class="activity-title">
+                        <i class="fas fa-history"></i> RECENT ACTIVITY
+                    </h3>
+                    <ul class="activity-list" id="recent-activity-list">
+                        <!-- Activity items will be populated by JavaScript -->
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Loading recent activity...</p>
+                                <span class="activity-time">Just now</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
 
             <div id="dashboard-view" class="hud-section active">
                 <div class="bento-grid">
@@ -422,6 +489,7 @@
     <script src="../js/back-to-top.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="../js/leaderboard.js"></script>
+    <script src="../js/quick-stats.js"></script>
 
     <script>
         renderNavbar('../');

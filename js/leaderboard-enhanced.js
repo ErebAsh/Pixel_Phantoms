@@ -238,3 +238,57 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// =========================================
+// INTEGRATION WITH QUICK STATS WIDGET
+// =========================================
+
+// Function to update stats when contributions happen
+function updateQuickStatsOnContribution(type, details) {
+    if (window.quickStatsWidget) {
+        let message = '';
+        let icon = 'fas fa-code-branch';
+        
+        switch(type) {
+            case 'pr_merged':
+                message = `PR merged: ${details.title || 'New contribution'}`;
+                icon = 'fas fa-code-merge';
+                break;
+            case 'event_attended':
+                message = `Attended event: ${details.name || 'Community event'}`;
+                icon = 'fas fa-calendar-check';
+                break;
+            case 'project_created':
+                message = `New project created: ${details.name || 'Project'}`;
+                icon = 'fas fa-plus-circle';
+                break;
+            default:
+                message = 'New community activity';
+        }
+        
+        window.quickStatsWidget.logActivity('contribution', message, icon);
+        
+        // Update recent contributions count
+        const currentContributions = parseInt(localStorage.getItem('recentContributions') || '0');
+        localStorage.setItem('recentContributions', (currentContributions + 1).toString());
+    }
+}
+
+// Listen for contribution events (you can call this from other parts of your app)
+document.addEventListener('contributionMade', (event) => {
+    if (event.detail && event.detail.type) {
+        updateQuickStatsOnContribution(event.detail.type, event.detail);
+    }
+});
+
+// Example: Simulate a contribution event (you can remove this in production)
+setTimeout(() => {
+    const contributionEvent = new CustomEvent('contributionMade', {
+        detail: {
+            type: 'pr_merged',
+            title: 'Fixed mobile navbar issue',
+            user: 'contributor123'
+        }
+    });
+    document.dispatchEvent(contributionEvent);
+}, 5000);
