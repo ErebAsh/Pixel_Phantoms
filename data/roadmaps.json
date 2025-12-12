@@ -493,5 +493,111 @@
         ]
       }
     ]
+  },
+  "data-analytics": {
+    "title": "Data_Protocol_v1.0",
+    "description": "Initialize sequence: Raw Data to Actionable Insight.",
+    "phases": [
+      {
+        "id": "phase_1",
+        "title": "PHASE_01: The_Foundation",
+        "status": "unlocked",
+        "modules": [
+          {
+            "title": "Python for Analysis",
+            "desc": "Core syntax, list comprehensions, and data structures.",
+            "link": "https://www.kaggle.com/learn/python",
+            "icon": "fa-brands fa-python"
+          },
+          {
+            "title": "SQL Queries",
+            "desc": "SELECT, JOIN, and aggregating data from relational DBs.",
+            "link": "https://www.w3schools.com/sql/",
+            "icon": "fa-solid fa-database"
+          },
+          {
+            "title": "Environment Setup",
+            "desc": "Anaconda, Jupyter Notebooks, and VS Code configuration.",
+            "link": "https://docs.anaconda.com/anaconda/install/",
+            "icon": "fa-solid fa-terminal"
+          }
+        ]
+      },
+      {
+        "id": "phase_2",
+        "title": "PHASE_02: Data_Wrangling",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "Pandas Toolkit",
+            "desc": "DataFrames, Series, and handling missing values.",
+            "link": "https://pandas.pydata.org/docs/user_guide/10min.html",
+            "icon": "fa-solid fa-table"
+          },
+          {
+            "title": "Data Cleaning",
+            "desc": "Filtering noise, formatting types, and outlier detection.",
+            "link": "https://realpython.com/python-data-cleaning-numpy-pandas/",
+            "icon": "fa-solid fa-broom"
+          },
+          {
+            "title": "APIs & Scraping",
+            "desc": "Acquiring data from the web using Requests and BeautifulSoup.",
+            "link": "https://realpython.com/beautiful-soup-web-scraper-python/",
+            "icon": "fa-solid fa-spider"
+          }
+        ]
+      },
+      {
+        "id": "phase_3",
+        "title": "PHASE_03: Visual_Intelligence",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "Statistics 101",
+            "desc": "Distributions, correlation, and hypothesis testing.",
+            "link": "https://www.khanacademy.org/math/statistics-probability",
+            "icon": "fa-solid fa-calculator"
+          },
+          {
+            "title": "Matplotlib & Seaborn",
+            "desc": "Static plotting: Histograms, Scatter plots, and Heatmaps.",
+            "link": "https://seaborn.pydata.org/tutorial/introduction.html",
+            "icon": "fa-solid fa-chart-bar"
+          },
+          {
+            "title": "EDA Methodology",
+            "desc": "Exploratory Data Analysis to uncover hidden patterns.",
+            "link": "https://www.kaggle.com/code/pmarcelino/comprehensive-data-exploration-with-python",
+            "icon": "fa-solid fa-magnifying-glass-chart"
+          }
+        ]
+      },
+      {
+        "id": "phase_4",
+        "title": "PHASE_04: Storytelling_Ops",
+        "status": "locked",
+        "modules": [
+          {
+            "title": "Tableau / PowerBI",
+            "desc": "Building interactive dashboards for stakeholders.",
+            "link": "https://public.tableau.com/en-us/s/resources",
+            "icon": "fa-solid fa-chart-pie"
+          },
+          {
+            "title": "Streamlit Apps",
+            "desc": "Turning data scripts into shareable web apps in minutes.",
+            "link": "https://streamlit.io/",
+            "icon": "fa-solid fa-fire"
+          },
+          {
+            "title": "Reporting",
+            "desc": "Communicating insights effectively to non-technical audiences.",
+            "link": "https://www.storytellingwithdata.com/",
+            "icon": "fa-solid fa-bullhorn"
+          }
+        ]
+      }
+    ]
   }
 }
