@@ -401,6 +401,7 @@
     text-decoration: none;
     transition: all 0.3s ease;
     line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .info-card a {
