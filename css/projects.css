@@ -1070,3 +1070,258 @@ input:checked + .slider:before {
         padding: 3px 8px;
     }
 }
+
+/* =========================================
+   PROJECTS PAGE PRINT ENHANCEMENTS
+   ========================================= */
+
+@media print {
+    /* Projects page specific adjustments */
+    .project-hero {
+        min-height: auto !important;
+        padding: 40px 0 !important;
+        border-bottom: 2px solid #000 !important;
+    }
+
+    .hero-glitch {
+        text-shadow: none !important;
+        color: #000 !important;
+    }
+
+    .terminal-box {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        margin: 20px 0 !important;
+    }
+
+    .console-text {
+        color: #000 !important;
+    }
+
+    .console-text.success {
+        font-weight: bold !important;
+    }
+
+    /* Featured project section */
+    .featured-project-section {
+        padding: 30px 0 !important;
+    }
+
+    .featured-card {
+        border: 2px solid #000 !important;
+        box-shadow: none !important;
+        margin-bottom: 30px !important;
+        page-break-inside: avoid !important;
+    }
+
+    .featured-visual img {
+        filter: grayscale(100%) !important;
+    }
+
+    .terminal-text {
+        border-left: 3px solid #000 !important;
+        background: #f9f9f9 !important;
+        padding: 15px !important;
+        margin: 15px 0 !important;
+    }
+
+    .highlight-green {
+        color: #000 !important;
+        font-weight: bold !important;
+    }
+
+    .featured-stats {
+        border-top: 1px solid #ccc !important;
+        border-bottom: 1px solid #ccc !important;
+        padding: 15px 0 !important;
+        margin: 15px 0 !important;
+    }
+
+    .stat span {
+        color: #000 !important;
+    }
+
+    /* Difficulty badges for print */
+    .difficulty-badge {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+    }
+
+    .difficulty-beginner {
+        color: #000 !important;
+        border-color: #000 !important;
+    }
+
+    .difficulty-intermediate {
+        color: #000 !important;
+        border-color: #000 !important;
+    }
+
+    .difficulty-advanced {
+        color: #000 !important;
+        border-color: #000 !important;
+    }
+
+    /* Project grid adjustments */
+    .projects-grid {
+        gap: 20px !important;
+    }
+
+    /* Project ID styling */
+    .project-id {
+        font-weight: bold !important;
+        color: #000 !important;
+    }
+
+    /* Tech stack tags */
+    .tech-stack-terminal {
+        margin: 15px 0 !important;
+    }
+
+    .tech-stack-terminal span {
+        border: 1px solid #000 !important;
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        margin: 0 5px 5px 0 !important;
+        padding: 3px 8px !important;
+    }
+
+    /* Project status indicators */
+    .status-dot.online::after {
+        content: " (Online)" !important;
+        font-size: 0.8em !important;
+        margin-left: 5px !important;
+    }
+
+    .status-dot.processing::after {
+        content: " (Processing)" !important;
+        font-size: 0.8em !important;
+        margin-left: 5px !important;
+    }
+
+    .status-dot.warning::after {
+        content: " (Warning)" !important;
+        font-size: 0.8em !important;
+        margin-left: 5px !important;
+    }
+
+    /* Code snippet print styles */
+    .code-snippet-container {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        border: 1px solid #000 !important;
+        margin: 20px 0 !important;
+    }
+
+    .code-header {
+        background: #f0f0f0 !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .code-language {
+        color: #000 !important;
+    }
+
+    .code-content {
+        font-family: "Courier New", monospace !important;
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
+        background: #fff !important;
+    }
+
+    /* Search and filter elements hidden in print */
+    .search-box,
+    .filter-tag,
+    .btn-glitch-filter,
+    .filter-results,
+    .filter-mobile-toggle,
+    .filter-dropdown {
+        display: none !important;
+    }
+
+    /* Print metadata */
+    .print-metadata {
+        border-top: 1px solid #ccc !important;
+        padding-top: 10px !important;
+        margin-top: 20px !important;
+        font-size: 9pt !important;
+        color: #666 !important;
+    }
+
+    .print-url {
+        word-break: break-all !important;
+    }
+
+    /* Project links for print */
+    a[href*="github.com"]::after {
+        content: " (GitHub Repository)" !important;
+    }
+
+    a[href*="demo"]::after {
+        content: " (Live Demo)" !important;
+    }
+
+    /* Print-specific page breaks */
+    .print-section-break {
+        page-break-before: always !important;
+    }
+
+    /* Avoid breaking inside important project sections */
+    .featured-content,
+    .card-content,
+    .sem-info,
+    .hack-overlay {
+        page-break-inside: avoid !important;
+    }
+
+    /* Print-friendly images */
+    img {
+        max-height: 300px !important;
+        object-fit: contain !important;
+    }
+
+    /* Project description optimization */
+    .cyber-card p {
+        line-height: 1.6 !important;
+        text-align: justify !important;
+    }
+
+    /* Print footer for projects */
+    .project-print-footer {
+        margin-top: 40px !important;
+        padding-top: 20px !important;
+        border-top: 2px solid #000 !important;
+        font-size: 9pt !important;
+        color: #666 !important;
+    }
+}
+
+
+.print-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+    
+.print-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,170,255,0.3);
+}
+    
+@media print {
+    .print-button {
+        display: none;
+    }
+}

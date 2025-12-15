@@ -1671,3 +1671,202 @@ textarea.hud-input {
     .comparison-charts { grid-template-columns: 1fr; }
     .comparison-stats { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   LEADERBOARD PRINT ENHANCEMENTS
+   ========================================= */
+
+@media print {
+    /* Leaderboard specific adjustments */
+    .dashboard-container {
+        display: block !important;
+        padding-top: 0 !important;
+    }
+
+    .hud-top-bar {
+        border-bottom: 2px solid #000 !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .header-title h1 {
+        text-shadow: none !important;
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+        padding-bottom: 10px !important;
+    }
+
+    /* Quick stats widget for print */
+    .quick-stats-widget {
+        border: 1px solid #000 !important;
+        margin: 20px 0 !important;
+        padding: 15px !important;
+        break-inside: avoid !important;
+    }
+
+    .widget-header {
+        border-bottom: 1px solid #ccc !important;
+        margin-bottom: 15px !important;
+    }
+
+    .stat-card {
+        border: 1px solid #ccc !important;
+        margin-bottom: 10px !important;
+        padding: 10px !important;
+        break-inside: avoid !important;
+    }
+
+    .stat-value {
+        color: #000 !important;
+        font-size: 18pt !important;
+    }
+
+    .stat-label {
+        color: #666 !important;
+        font-size: 10pt !important;
+    }
+
+    /* Activity timeline for print */
+    .recent-activity {
+        margin-top: 20px !important;
+        border-top: 1px solid #ccc !important;
+        padding-top: 15px !important;
+    }
+
+    .activity-item {
+        border-bottom: 1px dashed #eee !important;
+        padding: 8px 0 !important;
+    }
+
+    /* Section titles for print */
+    .section-heading {
+        border-bottom: 2px solid #000 !important;
+        color: #000 !important;
+        text-shadow: none !important;
+        padding-bottom: 8px !important;
+        margin-top: 30px !important;
+        page-break-before: always !important;
+    }
+
+    /* Module sections for print */
+    .module-sections {
+        break-inside: avoid !important;
+    }
+
+    .track-card {
+        border: 1px solid #000 !important;
+        margin-bottom: 15px !important;
+        padding: 15px !important;
+        page-break-inside: avoid !important;
+    }
+
+    .complexity-level {
+        border: 1px solid #000 !important;
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+
+    /* Profile page print styles */
+    .profile-header-panel {
+        border: 1px solid #000 !important;
+        margin-bottom: 20px !important;
+        box-shadow: none !important;
+    }
+
+    .profile-cover {
+        height: 50px !important;
+        background: #f0f0f0 !important;
+    }
+
+    .rank-orb {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+
+    .profile-badge {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    /* Form elements for print */
+    .hud-input, .hud-select {
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    /* Table improvements */
+    .table-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    /* Ensure no background colors in print */
+    .lb-main, .league-card, .bento-item, .profile-card,
+    .cyber-card, .seminar-card, .hack-main-card,
+    .member-card, .feature-card, .info-card {
+        background: #fff !important;
+        border: 1px solid #000 !important;
+    }
+
+    /* Text contrast for print */
+    .text-primary, .text-main, .text-secondary, .text-dim {
+        color: #000 !important;
+    }
+
+    /* Specific color overrides */
+    .accent-color, .neon-cyan, .neon-green, .neon-purple {
+        color: #000 !important;
+    }
+
+    /* Print page breaks */
+    .print-page-break {
+        page-break-before: always !important;
+    }
+
+    /* Avoid widows and orphans */
+    p, h1, h2, h3, h4, h5, h6 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* QR Code or print instructions */
+    .print-instructions {
+        border: 1px dashed #ccc !important;
+        padding: 10px !important;
+        margin: 20px 0 !important;
+        font-size: 9pt !important;
+        color: #666 !important;
+    }
+}
+
+.print-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+    
+.print-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,170,255,0.3);
+}
+    
+@media print {
+    .print-button {
+        display: none;
+    }
+}

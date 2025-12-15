@@ -3668,3 +3668,426 @@ main:focus {
         display: none; /* Hide on very small screens */
     }
 }
+
+/* =========================================
+   PRINT-FRIENDLY STYLES
+   ========================================= */
+
+@media print {
+    /* Global print reset */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12pt !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Hide non-essential elements */
+    .navbar,
+    .hud-sidebar,
+    .hero-buttons,
+    .btn-primary,
+    .btn-secondary,
+    .btn-cyber,
+    .btn-hollow,
+    .theme-toggle,
+    .hamburger,
+    .social-links,
+    .footer-newsletter,
+    .newsletter-form,
+    .input-group,
+    .search-box,
+    .export-btn,
+    .btn-sm,
+    .btn-terminal,
+    .icon-link,
+    .btn-glitch-filter,
+    .switch,
+    .toggle-wrapper,
+    .blink-dot,
+    .live-indicator,
+    .card-actions,
+    .action-buttons,
+    .feedback-widget,
+    .feedback-panel,
+    .feedback-toggle,
+    .nav-links,
+    .theme-label,
+    .skip-to-content,
+    .back-to-top,
+    .btn-refresh,
+    .btn-wobble,
+    .filter-container,
+    .filter-tag,
+    .reset-filters,
+    .filter-results,
+    .filter-dropdown,
+    .filter-mobile-toggle,
+    .panel-header,
+    .panel-line,
+    .quick-filter-tags,
+    .control-panel-section,
+    .featured-actions,
+    .scanner-line,
+    .grid-overlay,
+    .scene-3d,
+    .cube-wrapper,
+    .inner-core,
+    .chart-bars,
+    .chart-bar,
+    .bar-container,
+    .bar-fill,
+    .v-bar-bg,
+    .v-bar-fill,
+    .graph-panel,
+    .stage-3d-panel,
+    .physics-panel,
+    .control-text,
+    .leaderboard-preview::before,
+    .site-footer::before,
+    .footer-bottom-links,
+    .site-footer .social-links,
+    #cursor-highlight,
+    .typing-indicator,
+    .blink,
+    .wobbling,
+    .glitch-overlay,
+    .scan-line,
+    .card-border-top,
+    .glitch-img,
+    .glitch-text::before,
+    .glitch-text::after,
+    .hero-glitch::before,
+    .hero-glitch::after,
+    .section-header-glitch::before,
+    .section-header-glitch::after {
+        display: none !important;
+    }
+
+    /* Layout adjustments for print */
+    .main-content,
+    .dashboard-container,
+    .hud-main {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        display: block !important;
+    }
+
+    /* Fix dashboard layout for print */
+    .dashboard-container {
+        display: block !important;
+        min-height: auto !important;
+    }
+
+    .hud-main {
+        padding: 20px !important;
+    }
+
+    /* Typography improvements for print */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        color: #000 !important;
+    }
+
+    p, li {
+        page-break-inside: avoid !important;
+    }
+
+    /* Links */
+    a {
+        text-decoration: underline !important;
+        color: #000 !important;
+    }
+
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        color: #666;
+    }
+
+    /* Images */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid !important;
+        filter: grayscale(100%) !important;
+    }
+
+    /* Lists */
+    ul, ol {
+        page-break-before: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Tables */
+    table {
+        page-break-inside: auto !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+        border: 1px solid #000 !important;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto !important;
+    }
+
+    td, th {
+        border: 1px solid #000 !important;
+        padding: 8px !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    th {
+        background-color: #f0f0f0 !important;
+        font-weight: bold !important;
+    }
+
+    /* Leaderboard specific print styles */
+    .leaderboard-preview {
+        border: 1px solid #000 !important;
+        padding: 20px !important;
+        margin: 20px 0 !important;
+        break-inside: avoid !important;
+    }
+
+    .lb-main {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+        border-radius: 0 !important;
+    }
+
+    .lb-header {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+    }
+
+    .lb-row {
+        border-bottom: 1px solid #ccc !important;
+        page-break-inside: avoid !important;
+    }
+
+    .lb-rank-badge {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+
+    .rank-1 .lb-rank-badge {
+        border: 2px solid #000 !important;
+        font-weight: bold !important;
+    }
+
+    .lb-username {
+        font-weight: bold !important;
+    }
+
+    .lb-xp-val {
+        font-weight: bold !important;
+    }
+
+    /* League system print styles */
+    .league-system {
+        border: 1px solid #000 !important;
+        padding: 15px !important;
+        margin: 20px 0 !important;
+        break-inside: avoid !important;
+    }
+
+    .league-card {
+        border-left: 4px solid #000 !important;
+        border: 1px solid #ccc !important;
+        margin-bottom: 10px !important;
+    }
+
+    .league-icon {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+    }
+
+    /* Projects specific print styles */
+    .project-matrix-section {
+        break-inside: avoid !important;
+    }
+
+    .projects-grid {
+        display: block !important;
+    }
+
+    .cyber-card {
+        border: 1px solid #000 !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        box-shadow: none !important;
+    }
+
+    .card-content {
+        padding: 15px !important;
+    }
+
+    .card-header {
+        border-bottom: 1px solid #ccc !important;
+        margin-bottom: 10px !important;
+    }
+
+    .status-dot {
+        display: inline-block !important;
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    .tech-stack-terminal span {
+        border: 1px solid #000 !important;
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+
+    /* Table panel in dashboard */
+    .table-panel {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    .hud-table {
+        border: 1px solid #000 !important;
+    }
+
+    .hud-table th {
+        background: #f0f0f0 !important;
+        border-bottom: 2px solid #000 !important;
+    }
+
+    .hud-table td {
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .status-badge {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 2px 6px !important;
+    }
+
+    /* Grid and flex layouts for print */
+    .grid, .flex, .bento-grid, .hackathon-layout, .seminar-grid, 
+    .project-matrix, .functional-grid, .footer-content, 
+    .footer-links, .committee-grid, .features-grid, 
+    .roster-grid, .comparison-charts, .comparison-stats,
+    .profile-content-grid, .discipline-track-container {
+        display: block !important;
+    }
+
+    .grid > *, .flex > *, .bento-grid > *, .hackathon-layout > *,
+    .seminar-grid > *, .project-matrix > *, .functional-grid > *,
+    .footer-content > *, .footer-links > *, .committee-grid > *,
+    .features-grid > *, .roster-grid > *, .comparison-charts > *,
+    .comparison-stats > *, .profile-content-grid > *,
+    .discipline-track-container > * {
+        width: 100% !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Page breaks */
+    h1, h2, h3 {
+        page-break-after: avoid !important;
+    }
+
+    img {
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+    }
+
+    table, figure {
+        page-break-inside: avoid !important;
+    }
+
+    ul, ol, dl {
+        page-break-before: avoid !important;
+    }
+
+    /* Margins and padding */
+    .container, .content, .hud-main, .main-content {
+        margin: 0 !important;
+        padding: 10px !important;
+        max-width: none !important;
+    }
+
+    /* Footer for print */
+    .site-footer {
+        border-top: 2px solid #000 !important;
+        margin-top: 40px !important;
+        padding-top: 20px !important;
+    }
+
+    .footer-description {
+        font-size: 10pt !important;
+    }
+
+    /* Print header/footer */
+    @page {
+        margin: 2cm;
+        @top-center {
+            content: "Pixel Phantoms";
+            font-size: 10pt;
+            font-weight: bold;
+        }
+        @bottom-center {
+            content: "Page " counter(page);
+            font-size: 10pt;
+        }
+    }
+
+    /* Avoid page break inside important elements */
+    .hack-main-card, .seminar-card, .track-card, .achievement-card,
+    .member-card, .feature-card, .info-card, .profile-card {
+        page-break-inside: avoid !important;
+    }
+
+    /* Date and timestamp formatting */
+    .timestamp, .activity-time, .sem-date {
+        font-style: italic !important;
+        color: #666 !important;
+    }
+
+    /* Code snippets */
+    .code-snippet-container {
+        border: 1px solid #000 !important;
+        page-break-inside: avoid !important;
+    }
+
+    .code-content {
+        font-family: monospace !important;
+        font-size: 10pt !important;
+        white-space: pre-wrap !important;
+        background: #f9f9f9 !important;
+        border: 1px solid #eee !important;
+        padding: 10px !important;
+    }
+
+    /* Print only version of certain elements */
+    .print-only {
+        display: block !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+}
