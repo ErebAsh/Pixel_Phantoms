@@ -5,7 +5,9 @@
     "date": "April 10–11, 2025",
     "countdownDate": "2025-12-31T00:00:00",
     "location": "Innovation Lab",
-    "status": "REGISTRATION OPEN"
+    "status": "REGISTRATION OPEN",
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "AI & ML Bootcamp",
@@ -13,14 +15,18 @@
     "date": "May 5, 2025",
     "countdownDate": "2025-12-30T00:00:00",
     "location": "Seminar Hall",
-    "status": "UPCOMING"
+    "status": "UPCOMING",
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "Web Development Sprint",
     "date": "2025-01-20",
     "location": "Lab 1",
     "status": "Completed",
-    "description": "An intensive 3-day sprint covering HTML, CSS, JavaScript, and responsive layouts."
+    "description": "An intensive 3-day sprint covering HTML, CSS, JavaScript, and responsive layouts.",
+    "registrationOpen": false,
+    "registrationLink": ""
   },
   {
     "title": "Open Source Contribution Workshop",
@@ -28,7 +34,8 @@
     "location": "Seminar Hall B",
     "status": "Upcoming",
     "description": "Learn how to find beginner-friendly repositories, make your first PR, and collaborate on GitHub.",
-    "registrationLink": "https://forms.gle/opensource101"
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "Cybersecurity Awareness Session",
@@ -36,7 +43,8 @@
     "location": "Online",
     "status": "Upcoming",
     "description": "An introductory session on common cyber threats, safe practices, and career paths in cybersecurity.",
-    "registrationLink": "https://forms.gle/cybersecure"
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "UI/UX Design Jam",
@@ -44,14 +52,17 @@
     "location": "Design Studio",
     "status": "Upcoming",
     "description": "A collaborative design event focused on wireframing, prototyping, and user-centered design.",
-    "registrationLink": "https://forms.gle/uiuxjam"
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "Resume & LinkedIn Optimization Session",
     "date": "2025-01-18",
     "location": "Seminar Hall A",
     "status": "Completed",
-    "description": "A career-focused session helping students improve resumes and professional online profiles."
+    "description": "A career-focused session helping students improve resumes and professional online profiles.",
+    "registrationOpen": false,
+    "registrationLink": ""
   },
   {
     "title": "Cloud Computing Fundamentals",
@@ -59,13 +70,16 @@
     "location": "Computer Lab 3",
     "status": "Upcoming",
     "description": "Introduction to cloud platforms, deployment models, and basic cloud services.",
-    "registrationLink": "https://forms.gle/cloudfundamentals"
+    "registrationOpen": true,
+    "registrationLink": "https://forms.gle/JEMTvDifZxj3hmFc8"
   },
   {
     "title": "DSA Practice Marathon",
     "date": "2025-01-25",
     "location": "Lab 2",
     "status": "Completed",
-    "description": "A problem-solving marathon focusing on arrays, strings, and basic algorithms."
+    "description": "A problem-solving marathon focusing on arrays, strings, and basic algorithms.",
+    "registrationOpen": false,
+    "registrationLink": ""
   }
 ]

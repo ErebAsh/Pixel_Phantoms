@@ -26,30 +26,42 @@ if (upcomingEvents.length > 0) {
       container.innerHTML = "";
 
       events.forEach(event => {
+
+        const hasValidRegistration =
+  event.registrationOpen &&
+  event.registrationLink &&
+  event.registrationLink.trim() !== "";
+
         const card = document.createElement("div");
         card.className = "event-card";
 
         card.innerHTML = `
-          <div class="event-header">
-            <h3>${event.title}</h3>
-            
-          </div>
+  <div class="event-header">
+    <h3>${event.title}</h3>
+  </div>
 
-          <div class="event-meta">
-            <p><strong>Date:</strong> ${event.date}</p>
-            <p><strong>Location:</strong> ${event.location}</p>
-            <p><strong>Status:</strong> ${event.status}</p>
-          </div>
+  <div class="event-meta">
+    <p><strong>Date:</strong> ${event.date}</p>
+    <p><strong>Location:</strong> ${event.location}</p>
+    <p><strong>Status:</strong> ${event.status}</p>
+  </div>
 
-          <p class="event-desc">${event.description}</p>
+  <p class="event-desc">${event.description}</p>
 
-<div class="event-actions">
-  <a href="${event.registrationLink || '#'}" 
-     class="btn-register" 
-     target="_blank">
-    Register
-  </a>
-</div>
+  <div class="event-register">
+    ${
+      hasValidRegistration
+        ? `<a href="${event.registrationLink}" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn-register">
+              Register
+           </a>`
+        : `<button class="btn-register disabled" disabled>
+              Registration Closed
+           </button>`
+    }
+  </div>
 
         `;
 
