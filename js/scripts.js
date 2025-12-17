@@ -550,3 +550,95 @@ function hideProgressFallback(containerId) {
     const container = document.getElementById(containerId);
     if (container) container.style.display = 'none';
 }
+
+function initializeShareButtonIfAvailable() {
+    // Check if Font Awesome is available, if not, load it
+    if (!document.querySelector('link[href*="font-awesome"]') && !document.querySelector('link[href*="fontawesome"]')) {
+        const fontAwesomeLink = document.createElement('link');
+        fontAwesomeLink.rel = 'stylesheet';
+        fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+        fontAwesomeLink.integrity = 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==';
+        fontAwesomeLink.crossOrigin = 'anonymous';
+        fontAwesomeLink.referrerPolicy = 'no-referrer';
+        document.head.appendChild(fontAwesomeLink);
+    }
+    
+    // Load share button CSS if not already loaded
+    if (!document.querySelector('link[href*="share-button.css"]')) {
+        const shareCSS = document.createElement('link');
+        shareCSS.rel = 'stylesheet';
+        shareCSS.href = 'css/share-button.css';
+        document.head.appendChild(shareCSS);
+    }
+    
+    // Load share button JS if not already loaded
+    if (!document.querySelector('script[src*="share-button.js"]') && typeof window.shareButton === 'undefined') {
+        const shareJS = document.createElement('script');
+        shareJS.src = 'js/share-button.js';
+        shareJS.async = true;
+        shareJS.onload = function() {
+            console.log('Share button module loaded successfully');
+        };
+        shareJS.onerror = function() {
+            console.error('Failed to load share button module');
+            // Fallback: create basic share button
+            createFallbackShareButton();
+        };
+        document.head.appendChild(shareJS);
+    }
+}
+
+function createFallbackShareButton() {
+    // Check if button already exists
+    if (document.getElementById('share-button-container')) return;
+    
+    const shareButton = document.createElement('button');
+    shareButton.id = 'share-button-fallback';
+    shareButton.innerHTML = '📤';
+    shareButton.title = 'Share this page';
+    shareButton.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 999;
+        box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+        transition: all 0.3s ease;
+    `;
+    
+    shareButton.addEventListener('click', function() {
+        const url = window.location.href;
+        const title = document.title;
+        
+        // Simple copy to clipboard
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copied to clipboard! Share it with: ' + url);
+        }).catch(() => {
+            prompt('Copy this link:', url);
+        });
+    });
+    
+    document.body.appendChild(shareButton);
+}
+
+// Initialize share button when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Delay initialization slightly to let other scripts load
+    setTimeout(() => {
+        initializeShareButtonIfAvailable();
+    }, 1000);
+    
+    // Add share button to the existing scroll-to-top functionality
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    if (scrollToTopBtn) {
+        // Adjust position to make room for share button
+        scrollToTopBtn.style.bottom = '90px';
+    }
+});

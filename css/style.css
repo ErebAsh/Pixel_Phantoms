@@ -4091,3 +4091,23 @@ main:focus {
     }
 
 }
+/* Compatibility adjustments for share button */
+.scroll-to-top {
+    bottom: 90px !important; 
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 80px !important; 
+    }
+}
+
+/* Ensure share button doesn't conflict with other fixed elements */
+.modal-overlay {
+    z-index: 2000; 
+}
+
+/* Adjust for leaderboard page */
+.leaderboard-preview .share-button-container {
+    bottom: 100px; 
+}
