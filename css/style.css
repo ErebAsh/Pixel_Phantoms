@@ -945,9 +945,9 @@ main#main-content {
   transform: scale(1.05);
 }
 
-/* =========================================
-     8. LEADERBOARD PREVIEW (ENHANCED) - TOUCH FIXED
-     ========================================= */
+
+     /* 8. LEADERBOARD PREVIEW (ENHANCED) - TOUCH FIXED */
+  
 .leaderboard-preview {
   padding: 100px 0;
   background: var(--bg-primary);
@@ -4403,4 +4403,11 @@ main:focus {
 .input-group-cyber:focus-within {
   box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
   border-color: var(--accent-color);
+}
+.navbar,
+ .navbar * {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
 }
