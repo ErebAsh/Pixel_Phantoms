@@ -1,37 +1,102 @@
+/**
+ * Image Compression Script using Sharp
+ *
+ * Features:
+ * - Validates input image existence
+ * - Ensures output directories exist
+ * - Uses correct, format-specific compression options
+ * - Strips metadata by default (Sharp behavior)
+ * - Processes images in parallel for better performance
+ */
+
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * List of images to be compressed
+ * Add or remove paths as needed
+ */
 const images = [
   'assets/demo.png',
   'assets/host-event.jpg',
   'assets/logo.png'
 ];
 
-async function compressImage(inputPath, outputPath) {
+/**
+ * Compress a single image based on its file type
+ *
+ * @param {string} inputPath - Path to the source image
+ * @returns {Promise<void>}
+ */
+async function compressImage(inputPath) {
+  /* ---------------------------------------------------
+   * 1. Validate input file existence
+   * --------------------------------------------------- */
+  if (!fs.existsSync(inputPath)) {
+    throw new Error(`Input file does not exist: ${inputPath}`);
+  }
+
+  /* ---------------------------------------------------
+   * 2. Resolve paths and extensions
+   * --------------------------------------------------- */
   const ext = path.extname(inputPath).toLowerCase();
+  const outputPath = inputPath.replace(ext, `_compressed${ext}`);
+  const outputDir = path.dirname(outputPath);
+
+  /* ---------------------------------------------------
+   * 3. Ensure output directory exists
+   * --------------------------------------------------- */
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  /* ---------------------------------------------------
+   * 4. Initialize Sharp pipeline
+   *    (metadata is stripped by default)
+   * --------------------------------------------------- */
   let pipeline = sharp(inputPath);
 
+  /* ---------------------------------------------------
+   * 5. Apply format-specific compression
+   * --------------------------------------------------- */
   if (ext === '.png') {
-    pipeline = pipeline.png({ quality: 80, compressionLevel: 9 });
+    // PNG: lossless compression + palette quantization
+    pipeline = pipeline.png({
+      compressionLevel: 9,
+      palette: true
+    });
   } else if (ext === '.jpg' || ext === '.jpeg') {
-    pipeline = pipeline.jpeg({ quality: 80 });
+    // JPEG: better compression with mozjpeg
+    pipeline = pipeline.jpeg({
+      quality: 80,
+      mozjpeg: true
+    });
+  } else {
+    throw new Error(`Unsupported file type: ${ext}`);
   }
 
+  /* ---------------------------------------------------
+   * 6. Write compressed image to disk
+   * --------------------------------------------------- */
   await pipeline.toFile(outputPath);
-  console.log(`Compressed ${inputPath} to ${outputPath}`);
+
+  console.log(`✔ Compressed: ${inputPath} → ${outputPath}`);
 }
 
+/**
+ * Main entry point
+ * Compresses all images in parallel
+ */
 async function main() {
-  for (const image of images) {
-    const outputPath = image.replace(path.extname(image), '_compressed' + path.extname(image));
-    try {
-      await compressImage(image, outputPath);
-    } catch (error) {
-      console.error(`Error compressing ${image}:`, error);
-    }
+  try {
+    await Promise.all(
+      images.map(image => compressImage(image))
+    );
+
+    console.log('✅ Image compression completed.');
+  } catch (error) {
+    console.error('❌ Compression failed:', error.message);
   }
-  console.log('Image compression completed.');
 }
 
-main().catch(console.error);
+// Execute script
+main();
