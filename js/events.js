@@ -1,8 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("events-container");
 
+  if (!container) {
+    console.error("Events container not found");
+    return;
+  }
+
   fetch("data/events.json")
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(events => {
 
   if (!events || events.length === 0) {
@@ -65,7 +75,10 @@ if (upcomingEvents.length > 0) {
     })
     .catch(error => {
       console.error("Error loading events:", error);
-      container.innerHTML = "<p>Failed to load events.</p>";
+      const errorMessage = error.message.includes('HTTP') ? 'Failed to load events. Please check your connection.' : 'No events data available.';
+      if (container) {
+        container.innerHTML = `<div class="no-events"><h3>Error</h3><p>${errorMessage}</p></div>`;
+      }
     });
 
   // --- Registration modal behavior ---

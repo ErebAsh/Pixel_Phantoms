@@ -31,18 +31,31 @@ function initLightbox() {
     const captionText = document.getElementById('caption');
     const closeBtn = document.querySelector('.close-lightbox');
     
+    // Error handling for missing elements
+    if (!lightbox || !lightboxImg || !captionText || !closeBtn) {
+        console.warn('Lightbox elements not found in DOM');
+        return;
+    }
+    
     // Get all gallery images
     const items = document.querySelectorAll('.gallery-item');
 
     items.forEach(item => {
         item.addEventListener('click', function() {
             const img = this.querySelector('img');
+            
+            // Validate image exists
+            if (!img || !img.src) {
+                console.warn('Image source not found');
+                return;
+            }
+            
             lightbox.style.display = "flex"; // Flex to center
             lightbox.style.flexDirection = "column";
             lightbox.style.justifyContent = "center";
             
             lightboxImg.src = img.src;
-            captionText.innerHTML = img.alt || 'Gallery Image';
+            captionText.textContent = img.alt || 'Gallery Image';
             
             // Disable body scroll
             document.body.style.overflow = 'hidden';
@@ -74,11 +87,29 @@ function initLightbox() {
 
 /* 3. SMOOTH SCROLL FOR NAV */
 function initSmoothScroll() {
-    document.querySelectorAll('.gallery-nav a').forEach(anchor => {
+    const navAnchors = document.querySelectorAll('.gallery-nav a');
+    
+    if (navAnchors.length === 0) {
+        console.warn('No gallery navigation anchors found');
+        return;
+    }
+    
+    navAnchors.forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            
+            if (!targetId || targetId === '#') {
+                console.warn('Invalid target ID:', targetId);
+                return;
+            }
+            
             const targetSection = document.querySelector(targetId);
+            
+            if (!targetSection) {
+                console.warn('Target section not found:', targetId);
+                return;
+            }
             
             // Update active class
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));

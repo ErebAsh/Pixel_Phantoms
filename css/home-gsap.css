@@ -263,7 +263,7 @@ main {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     /* UPDATED: Uses card-bg with transparency for readability */
-    background: linear-gradient(to top, var(--card-bg) 20%, rgba(0,0,0,0) 80%, transparent 100%); 
+    background: linear-gradient(to top, var(--card-bg) 20%, rgba(205, 16, 16, 0) 80%, transparent 100%); 
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -301,7 +301,7 @@ main {
 }
 
 .btn-hollow {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     border: 1px solid var(--text-primary); /* UPDATED */
     color: var(--text-primary); /* UPDATED */
     padding: 10px 25px;
@@ -1018,7 +1018,9 @@ footer {
 .modal-overlay.active .modal-container {
     transform: scale(1);
 }
-
+.light-mode .close-modal {
+    color: #ffffffb1;
+}
 .close-modal {
     position: absolute;
     top: 15px;
@@ -1030,11 +1032,15 @@ footer {
     cursor: pointer;
     z-index: 10;
 }
-
+.light-mode .close-modal:hover {
+    color: #ffffff75;
+}
 .close-modal:hover {
     color: var(--neon-cyan);
 }
-
+.light-mode .modal-header{
+    color: #ffffff;
+}
 .modal-header {
     text-align: center;
     margin-bottom: 25px;
@@ -1049,6 +1055,9 @@ footer {
     border: 3px solid var(--neon-cyan);
 }
 
+.light-mode .modal-subtitle {
+    color: #ffffffc5;
+}
 .modal-subtitle {
     color: var(--text-dim);
     font-size: 0.9rem;
@@ -1073,6 +1082,17 @@ footer {
     background: rgba(0,0,0,0.2);
     padding: 15px;
     border-radius: 12px;
+}
+
+/* Light mode – improve stat visibility */
+.light-mode .modal-stats-row {
+    background: #f3f4f6;
+}
+.light-mode .modal-stats-row .stat-label {
+    color: #1f2937;
+}
+.light-mode .modal-stats-row .stat-number {
+    color: #000000;
 }
 
 .modal-stat {
@@ -1209,6 +1229,9 @@ footer {
     box-shadow: 0 0 15px var(--neon-cyan);
 }
 
+.light-mode .secondary-btn {
+    color: #ffff;
+}
 .secondary-btn {
     background: transparent;
     border: 1px solid var(--text-dim);
