@@ -704,6 +704,7 @@
         min-height: 140px;
     }
 }
+}
 
 @media (max-width: 600px) {
     .committee-grid {
