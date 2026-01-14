@@ -24,17 +24,12 @@
     <div id="scroll-progress-container">
       <div id="scroll-progress-bar"></div>
     </div>
+  
 
-    <!-- SKIP TO CONTENT LINK (ACCESSIBILITY) -->
-    <a href="#main-help" class="skip-to-content" id="skip-link">
-      <i class="fas fa-forward"></i> Skip to Main Content
-    </a>
 
-    <div id="navbar-placeholder"></div>
-    <script src="../js/navbar.js"></script>
-    <script>
-      renderNavbar('../');
-    </script>
+   
+  <div id="cursor-highlight"></div>
+  <div id="navbar-placeholder"></div>
 
     <div class="main-content" id="main-help" tabindex="-1">
       <section class="help-hero">
@@ -192,11 +187,47 @@
 
     <div id="footer-placeholder"></div>
     <script src="../js/footer.js"></script>
+    <script src="../js/navbar.js"></script>
     <script>
       renderFooter('../');
     </script>
+    <script src="../js/navbar.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    renderNavbar('../');
+  });
+</script>
+
 
     <script src="../js/theme.js"></script>
+     <script>
+      // Render these immediately so the theme.js can find the toggle switch
+      renderNavbar();
+     
+
+    renderNavbar(basePath);
+   
+    document.addEventListener('DOMContentLoaded', function () {
+      const skipLink = document.getElementById('skip-link');
+      const mainContent =
+        document.getElementById('main-content') || document.querySelector('main');
+
+      if (skipLink && mainContent) {
+        skipLink.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // Add tabindex if not already present and focus
+          if (!mainContent.hasAttribute('tabindex')) {
+            mainContent.setAttribute('tabindex', '-1');
+          }
+          mainContent.focus();
+
+          // Optional: smooth scroll to the main content
+          mainContent.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
