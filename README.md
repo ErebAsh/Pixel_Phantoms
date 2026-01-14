@@ -383,3 +383,11 @@ Thanks to all the amazing contributors who make this project better every day! �
 > Let’s build something amazing together! 🚀👻
 
 
+### Security: Contact form spam protection
+
+- The contact form includes a hidden honeypot field named `website` (bots often fill this).
+- Client-side rate limiting is enabled (5 seconds between submissions) using `localStorage`.
+- No server configuration or API keys are required.
+
+**Testing:** Fill the hidden `website` field or submit repeatedly to see the "Spam detected" and rate limit messages.
+

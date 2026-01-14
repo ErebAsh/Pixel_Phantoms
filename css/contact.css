@@ -969,3 +969,43 @@ html {
                 inset 0 1px 0 rgba(255, 255, 255, 0.1),
                 0 0 0 1px rgba(0, 170, 255, 0.2);
 }
+
+/* ----- Spam protection visuals & animations ----- */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+.shake { animation: shake 0.6s ease; }
+
+@keyframes slideIn {
+    from { transform: translateY(-8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide { animation: slideIn 0.4s ease-out; }
+
+@keyframes successFade {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+.animate-success { animation: successFade 0.5s ease-out; }
+
+input.invalid, textarea.invalid {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.08);
+}
+
+.animate-error { /* keeps compatibility; used to trigger small flashes */ }
+
+.btn-submit .spinner { margin-right: 8px; }
+.btn-submit.loading { cursor: wait; opacity: 0.95; }
+
+.feedback-message { transition: all 0.3s ease; }
+.feedback-message.error { color: #ff6b6b; background: rgba(255,107,107,0.04); border: 1px solid rgba(255,107,107,0.08); padding: 10px; border-radius: 8px; }
+.feedback-message.success { color: #2ecc71; background: rgba(46,204,113,0.03); border: 1px solid rgba(46,204,113,0.08); padding: 10px; border-radius: 8px; }
+
+/* Screen-reader only helper */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; white-space: nowrap; }

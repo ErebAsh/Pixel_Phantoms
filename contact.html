@@ -235,9 +235,58 @@
           <p style="color: var(--text-dim)">Have a question? We'd love to hear from you.</p>
         </section>
 
-        <div class="contact-box-wrapper">
-          <form id="contact-form">
-            <h3>Send a Message</h3>
+        <div class="contact-container">
+          <div class="contact-box-wrapper">
+            <div class="contact-box">
+              <form id="contact-form">
+                <h3>Send a Message</h3>
+
+                <div class="input-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="John Doe"
+                    required
+                    minlength="2"
+                    maxlength="50"
+                  />
+                  <div class="error-message" id="name-error"></div>
+                </div>
+
+                <div class="input-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="john@example.com" required />
+                  <div class="error-message" id="email-error"></div>
+                </div>
+
+                <div class="input-group">
+                  <label for="message">Message</label>
+                  <textarea
+                    id="message"
+                    placeholder="Type your message here..."
+                    required
+                    minlength="10"
+                    maxlength="500"
+                  ></textarea>
+                  <div class="char-counter"><span id="char-count">0</span><span>/500</span></div>
+                  <div class="error-message" id="message-error"></div>
+                </div>
+
+                <!-- Honeypot: hidden field named 'website' to trap bots -->
+                <div class="input-group honeypot-group" style="display:none;">
+                  <label for="website" class="sr-only">Website</label>
+                  <input type="text" id="website" name="website" data-honeypot="true" aria-label="If you are human, leave this field blank" autocomplete="off" />
+                </div>
+
+                <button type="submit" class="btn-submit">
+                  Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+
+                <div id="form-feedback" class="feedback-message" role="status" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
 
             <div class="input-group">
               <label for="name">Name</label>
