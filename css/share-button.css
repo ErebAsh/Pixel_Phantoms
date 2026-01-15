@@ -5,9 +5,9 @@
 /* Floating Share Button Container */
 .share-button-container {
   position: fixed !important;
-  bottom: 20px !important;
+  bottom: 85px !important;
   right: 20px !important;
-  z-index: 1002 !important;
+  z-index: 1000 !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

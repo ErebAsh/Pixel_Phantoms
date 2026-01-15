@@ -2695,9 +2695,9 @@ main:focus {
 
 #feedback-widget {
   position: fixed !important;
-  bottom: 85px !important;
-  right: 20px !important;
-  z-index: 1001 !important;
+  bottom: 120px !important;
+  right: 28px !important;
+  z-index: 1005 !important;
   transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
