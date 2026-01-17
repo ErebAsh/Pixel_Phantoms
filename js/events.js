@@ -93,17 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
           </p>
 
           <div class="event-register">
-            ${
-              hasValidRegistration && eventDate >= today
-                ? `<a href="${event.registrationLink}" target="_blank"
+            ${hasValidRegistration && eventDate >= today
+            ? `<a href="${event.registrationLink}" target="_blank"
                      class="btn-register btn-open-register"
                      data-event-title="${(event.title || 'Event').replace(/"/g, '&quot;')}">
                      Register Now
                    </a>`
-                : `<button class="btn-register disabled" disabled>
+            : `<button class="btn-register disabled" disabled>
                      Registration Closed
                    </button>`
-            }
+          }
           </div>
         `;
 
@@ -148,40 +147,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* 🔐 VALIDATION ADDED HERE */
-    registerForm?.addEventListener('submit', e => {
+    /* 🚀 ASYNC API REGISTRATION */
+    const showToast = (message) => {
+      let toast = document.getElementById('toast-notification');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    };
+
+    registerForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const firstName = registerForm.firstName.value.trim();
       const lastName = registerForm.lastName.value.trim();
       const age = parseInt(registerForm.age.value, 10);
       const email = registerForm.email.value.trim();
+      const eventTitle = modalTitle.textContent;
 
       const nameRegex = /^[A-Z][a-z]{1,29}$/;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (!nameRegex.test(firstName)) {
-        alert('First name must start with a capital letter and contain only alphabets.');
-        return;
-      }
+      console.log('Submitting form...', { firstName, lastName, age, email });
 
-      if (!nameRegex.test(lastName)) {
-        alert('Last name must start with a capital letter and contain only alphabets.');
-        return;
-      }
+      // RELAXED VALIDATION FOR DEBUGGING
+      // if (!nameRegex.test(firstName)) {
+      //   showToast('First name: CamelCase alphabets only (e.g. "John").');
+      //   return;
+      // }
+
+      // if (!nameRegex.test(lastName)) {
+      //   showToast('Last name: CamelCase alphabets only (e.g. "Doe").');
+      //   return;
+      // }
 
       if (isNaN(age) || age < 18) {
-        alert('You must be at least 18 years old to register.');
+        showToast('You must be at least 18 years old.');
         return;
       }
 
       if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address.');
+        showToast('Please enter a valid email address.');
         return;
       }
 
-      alert('Successfully registered!');
-      registerForm.reset();
-      closeModal();
+      const submitBtn = registerForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Processing...';
+      submitBtn.classList.add('btn-loading');
+      submitBtn.disabled = true;
+
+      console.log('🚀 Initiating fetch to http://127.0.0.1:5000/api/v1/register ...');
+      try {
+        // Use 127.0.0.1 to avoid Windows localhost IPv6 resolution issues
+        const response = await fetch('http://127.0.0.1:5000/api/v1/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstName, lastName, age, email, eventTitle })
+        });
+        console.log('✅ Fetch response received:', response.status);
+
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showToast('Registration Successful! Check your email. ✅');
+          registerForm.reset();
+          setTimeout(closeModal, 1500);
+        } else {
+          showToast(result.message || (result.errors?.[0]?.msg) || 'Registration failed ❌');
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('❌ CONNECTION ERROR:\nCould not reach the backend server at http://localhost:5000.\n\nMake sure the backend terminal is running!');
+        showToast('Server error. Please try again later. 🛠️');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.disabled = false;
+      }
     });
   })();
 });

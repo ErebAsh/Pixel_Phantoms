@@ -5,7 +5,9 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 // Load environment variables
-const envResult = dotenv.config();
+// Load environment variables
+const path = require('path');
+const envResult = dotenv.config({ path: path.join(__dirname, '../../.env') });
 if (envResult.error) {
   console.error('⚠️ Warning: Failed to load .env file:', envResult.error.message);
   if (process.env.NODE_ENV === 'production') {
@@ -17,21 +19,11 @@ if (envResult.error) {
 const app = express();
 
 // Configure CORS
-const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,http://localhost:5500')
-  .split(',')
-  .map(origin => origin.trim())
-  .filter(Boolean);
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true,
+  origin: '*', // ALLOW EVERYTHING FOR DEBUGGING
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 // Middleware
@@ -40,6 +32,20 @@ app.use(cors(corsOptions)); // Enable CORS with restrictions
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev')); // Logging
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Database Sync
+const sequelize = require('./config/database');
+const User = require('./models/User');
+const Event = require('./models/Event');
+const Registration = require('./models/Registration');
+
+sequelize.sync({ alter: true })
+  .then(() => console.log('✅ Database synced successfully'))
+  .catch(err => console.error('❌ Error syncing database:', err));
+
+// Routes
+const registrationRoutes = require('./routes/registrationRoutes');
+app.use('/api/v1', registrationRoutes);
 
 // Health Check Endpoint
 app.get('/api/v1/health', (req, res) => {
@@ -84,6 +90,7 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`📧 Email System: ${process.env.EMAIL_USER ? '✅ Configured (' + process.env.EMAIL_USER + ')' : '❌ Not Configured'}`);
 });
 
 // Graceful shutdown handling

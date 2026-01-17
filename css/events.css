@@ -690,3 +690,52 @@ body.dark-mode .no-events.error {
   opacity: 0.6;
   filter: grayscale(100%);
 }
+#toast-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(20, 20, 25, 0.9);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: 10000;
+  border: 1px solid var(--accent-color);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+#toast-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rotate 0.8s infinite linear;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
