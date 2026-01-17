@@ -4,6 +4,11 @@ const User = require('../models/User');
 const Event = require('../models/Event');
 const Registration = require('../models/Registration');
 const { sendRegistrationEmail } = require('../services/emailService');
+const fs = require('fs');
+const path = require('path');
+
+// Load events data
+const eventsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../data/events.json'), 'utf8'));
 
 const register = async (req, res, next) => {
     const errors = validationResult(req);
@@ -26,16 +31,25 @@ const register = async (req, res, next) => {
         let event = await Event.findOne({ where: { title: eventTitle }, transaction });
 
         // If event doesn't exist in DB yet (first time it's being registered for), create it
-        // In a real app, events would already be in the DB.
         if (!event) {
-            // Logic to fallback or create from some other source might be needed
-            // For now, let's create a placeholder event if it's missing to make it work
-            event = await Event.create({
-                title: eventTitle,
-                date: new Date(), // Placeholder
-                location: 'To be announced',
-                capacity: 100
-            }, { transaction });
+            // Try to find event details from events.json
+            const eventData = eventsData.find(e => e.title === eventTitle);
+            if (eventData) {
+                event = await Event.create({
+                    title: eventTitle,
+                    date: new Date(eventData.countdownDate),
+                    location: eventData.location,
+                    capacity: 100 // Default capacity, can be adjusted
+                }, { transaction });
+            } else {
+                // Fallback to placeholder if not found in JSON
+                event = await Event.create({
+                    title: eventTitle,
+                    date: new Date(),
+                    location: 'To be announced',
+                    capacity: 100
+                }, { transaction });
+            }
         }
 
         // 3. Check if already registered
