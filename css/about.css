@@ -309,14 +309,18 @@ body.light-mode .motto-banner {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  color: white;
+  color: var(--activity-icon-color);
   font-size: 1.5rem;
   transition: transform 0.3s ease;
+
 }
 
 .activity-card:hover .activity-icon {
   transform: scale(1.1) rotate(5deg);
+  color: white;
 }
+
+
 
 .activity-card h3 {
   color: var(--text-primary);
@@ -1108,6 +1112,33 @@ body.light-mode .motto-banner {
 }
 
 footer {
-  all: unset;
-  display: block;
+    all: unset;
+    display: block;
+}
+
+/*FINAL FIX: About Hero Text in Light Mode */
+
+/* Hero title */
+.light-mode .hero-title {
+  color: #0f172a;
+  text-shadow: none;
+}
+
+/* Motto banner text */
+.light-mode .motto-main {
+  color: #111111;
+  text-shadow: none;
+}
+
+.light-mode .motto-subtitle {
+  color: #333333;
+}
+
+/* Improve motto card contrast */
+.light-mode .motto-banner {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: none;
+
+  
 }

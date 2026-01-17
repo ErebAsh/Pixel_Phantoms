@@ -130,43 +130,94 @@ document.addEventListener('DOMContentLoaded', () => {
         validate(inputs.message, rules.message, errors.message)
     );
 
-    /* ------------------ Submit ------------------ */
+    /* ------------------ Submit with honeypot & rate-limiting ------------------ */
+
+    const RATE_LIMIT_KEY = 'pp_contact_last_submit';
+    const RATE_LIMIT_SECONDS = 5; // Prevent submissions within 5 seconds
+    let countdownInterval = null;
+
+    function showFeedback(msg, type = '', animate = '') {
+        feedbackMsg.textContent = msg;
+        feedbackMsg.className = `feedback-message ${type}`.trim();
+        if (animate) {
+            feedbackMsg.classList.add(animate);
+            setTimeout(() => feedbackMsg.classList.remove(animate), 600);
+        }
+    }
+
+    function startCountdown(seconds) {
+        clearInterval(countdownInterval);
+        let remaining = seconds;
+
+        showFeedback(`⚠️ Please wait ${remaining} seconds before submitting again`, 'error', 'animate-slide');
+
+        countdownInterval = setInterval(() => {
+            remaining -= 1;
+            if (remaining <= 0) {
+                clearInterval(countdownInterval);
+                showFeedback('', '');
+                return;
+            }
+            showFeedback(`⚠️ Please wait ${remaining} seconds before submitting again`, 'error', 'animate-slide');
+        }, 1000);
+    }
 
     contactForm.addEventListener('submit', async e => {
         e.preventDefault();
 
+        // Honeypot check
+        const honeypot = document.querySelector('input[data-honeypot="true"]');
+        if (honeypot && honeypot.value.trim() !== '') {
+            showFeedback('❌ Spam detected. Please try again.', 'error', 'animate-error');
+            contactForm.classList.add('shake');
+            setTimeout(() => contactForm.classList.remove('shake'), 600);
+            return;
+        }
+
+        // Rate limiting
+        const now = Date.now();
+        const lastTs = Number(localStorage.getItem(RATE_LIMIT_KEY) || 0);
+        const elapsed = Math.floor((now - lastTs) / 1000);
+        if (lastTs && elapsed < RATE_LIMIT_SECONDS) {
+            startCountdown(RATE_LIMIT_SECONDS - elapsed);
+            return;
+        }
+
+        // Validate fields
         const isValid =
             validate(inputs.name, rules.name, errors.name) &&
             validate(inputs.email, rules.email, errors.email) &&
             validate(inputs.message, rules.message, errors.message);
 
         if (!isValid) {
-            feedbackMsg.textContent = '❌ Please fix the errors above.';
-            feedbackMsg.className = 'feedback-message error';
+            showFeedback('❌ All fields are required and must be valid.', 'error', 'animate-error');
             return;
         }
 
+        // Show loading state on button
         submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Sending…';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin spinner"></i> Sending...';
+        submitBtn.classList.add('loading');
 
         try {
+            // Simulated send (replace with real request if backend available)
             await new Promise(resolve => setTimeout(resolve, 1500));
 
-            feedbackMsg.textContent = '✅ Message sent successfully!';
-            feedbackMsg.className = 'feedback-message success';
+            showFeedback("✅ Message sent successfully! We'll get back to you soon.", 'success', 'animate-success');
 
             contactForm.reset();
             updateCharCounter();
 
-            Object.values(inputs).forEach(i =>
-                i.classList.remove('valid', 'invalid')
-            );
-        } catch {
-            feedbackMsg.textContent = '❌ Something went wrong. Try again.';
-            feedbackMsg.className = 'feedback-message error';
+            Object.values(inputs).forEach(i => i.classList.remove('valid', 'invalid'));
+
+            // store last submit timestamp
+            localStorage.setItem(RATE_LIMIT_KEY, String(Date.now()));
+        } catch (err) {
+            showFeedback('❌ Failed to send message. Please try again later.', 'error', 'animate-error');
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
+            submitBtn.classList.remove('loading');
         }
     });
 });

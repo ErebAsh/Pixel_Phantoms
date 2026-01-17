@@ -9,8 +9,8 @@
     <!-- scroll-buttons.css logic moved to back-to-top.css and share-button.css -->
     <!-- <link rel="stylesheet" href="css/scroll-buttons.css" /> -->
     <link rel="stylesheet" href="css/style.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/back-to-top.css" />
+    <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/share-button.css" />
     <link rel="stylesheet" href="css/home-gsap.min.css" />
     <link rel="stylesheet" href="css/cursor-effect.css" />
@@ -23,6 +23,25 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <meta property="og:title" content="Pixel Phantoms" />
+    <meta
+      property="og:description"
+      content="A student-driven tech community empowering learners through code, design, and collaboration. Build real projects. Learn by doing."
+    />
+    <meta property="og:url" content="https://sayeeg-11.github.io/Pixel_Phantoms" />
+    <meta
+      property="og:image"
+      content="https://sayeeg-11.github.io/Pixel_Phantoms/public/preview-image.png"
+    />
+    <meta property="og:image:alt" content="Pixel Phantoms" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://sayeeg-11.github.io/Pixel_Phantoms/public/preview-image.png"
     />
   </head>
 
@@ -40,6 +59,7 @@
     <div id="navbar-placeholder"></div>
 
     <main id="main-content" tabindex="-1">
+      <div class="page-transition-wrapper" data-page="home">
       <section class="hero-section" id="hero">
         <div class="grid-overlay" aria-hidden="true"></div>
         <div class="hero-content">
@@ -149,7 +169,7 @@
           <div class="focus-footer">
             <p>
               > Want to learn more about our complete mission?
-              <a href="pages/about.html" class="cyber-link">Visit About Page</a>
+              <a href="/about.html" class="cyber-link">Visit About Page</a>
             </p>
           </div>
         </div>
@@ -563,6 +583,7 @@
           </div>
         </div>
       </section>
+    </div>
     </main>
 
     <div id="footer-placeholder"></div>
@@ -709,12 +730,13 @@
         });
       });
     </script>
-    <script src="js/feedback.js"></script>
-    <script src="js/scroll-progress.js"></script>
-    <script src="js/feedback.js"></script>
-    <script src="js/scroll-progress.js"></script>
-    <script src="js/feedback-widget.js"></script>
 
+
+    <!--script src="js/feedback.js"></script>-->
+    
+    <script src="js/scroll-progress.js"></script>
+    
+    
     <div id="feedback-widget">
       <button id="feedback-toggle">💬</button>
 
@@ -755,6 +777,8 @@
       </div>
     </div>
     <script src="js/feedback-widget.js"></script>
+
+    
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const text = 'PIXEL_PHANTOMS';
@@ -792,6 +816,7 @@
       });
     </script>
 
+    <script src="js/page-transitions.js" defer></script>
     <script>
       const currentPage = location.pathname.split('/').pop();
 

@@ -1,59 +1,79 @@
 // --- Feedback Widget Logic ---
+console.log("feedback-widget.js loaded");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const widget = document.getElementById('feedback-widget');
-  const toggleBtn = document.getElementById('feedback-toggle');
-  const panel = document.getElementById('feedback-panel');
-  const closeBtn = document.getElementById('feedback-close');
-  const stars = document.querySelectorAll('#star-rating .star');
-  const form = document.getElementById('feedback-form');
-  const statusBox = document.getElementById('feedback-status');
+const widget = document.getElementById('feedback-widget');
+const toggleBtn = document.getElementById('feedback-toggle');
+const panel = document.getElementById('feedback-panel');
+const closeBtn = document.getElementById('feedback-close');
+const stars = document.querySelectorAll('#star-rating .star');
+const form = document.getElementById('feedback-form');
+const statusBox = document.getElementById('feedback-status');
 
-  let rating = 0;
+let rating = 0;
 
-  // Toggle popup
-  toggleBtn.addEventListener('click', () => {
-    widget.classList.toggle('open');
-  });
+// Toggle popup
+toggleBtn.addEventListener('click', () => {
+  widget.classList.toggle('open');
+});
 
-  closeBtn.addEventListener('click', () => {
-    widget.classList.remove('open');
-  });
+closeBtn.addEventListener('click', () => {
+  widget.classList.remove('open');
+});
 
   // Handle star rating
-  stars.forEach((star, index) => {
-    star.addEventListener('click', () => {
-      rating = index + 1;
+stars.forEach((star, index) => {
+  star.addEventListener('click', () => {
+    rating = index + 1;
 
-      stars.forEach(s => s.classList.remove('selected'));
-      for (let i = 0; i <= index; i++) {
-        stars[i].classList.add('selected');
-      }
-    });
+    stars.forEach(s => s.classList.remove('selected'));
+    for (let i = 0; i <= index; i++) {
+      stars[i].classList.add('selected');
+    }
   });
+});
 
   // Submit feedback
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const data = {
-      name: form.username.value,
-      email: form.email.value,
-      message: form.message.value,
-      rating,
-    };
-
-    console.log('Feedback Submitted :', data);
-
-    statusBox.innerText = 'Thank you for your feedback ❤️';
-
-    form.reset();
-    rating = 0;
-    stars.forEach(s => s.classList.remove('selected'));
-
-    setTimeout(() => {
-      statusBox.innerText = '';
-      widget.classList.remove('open');
-    }, 1200);
-  });
+    
+form.addEventListener('submit', e => {
+  e.preventDefault();
+    
+  const name = form.username.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
+    
+      // Validation
+  if (name.length < 2) {
+    statusBox.innerText = 'Please enter your name (min 2 characters).';
+    return;
+  }
+    
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailOk) {
+    statusBox.innerText = 'Please enter a valid email address.';
+    return;
+  }
+    
+  if (message.length < 10) {
+    statusBox.innerText = 'Please write a suggestion (min 10 characters).';
+    return;
+  }
+    
+  if (rating === 0) {
+    statusBox.innerText = 'Please select a rating (1–5 stars).';
+    return;
+  }
+    
+  const data = { name, email, message, rating };
+  console.log('Feedback Submitted :', data);
+    
+  statusBox.innerText = 'Thank you for your feedback ❤️';
+    
+  form.reset();
+  rating = 0;
+  stars.forEach(s => s.classList.remove('selected'));
+    
+  setTimeout(() => {
+    statusBox.innerText = '';
+    widget.classList.remove('open');
+  }, 1200);
 });

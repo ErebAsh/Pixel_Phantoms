@@ -855,6 +855,16 @@ main {
     color: var(--text-secondary);
 }
 
+.footer-links-grid{
+margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+} 
+
+
+
 .lb-scoring-info {
     display: flex;
     justify-content: space-between;
@@ -941,6 +951,15 @@ main {
 @media (max-width: 900px) {
     .lb-layout { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 480px) {
+  .footer-links-grid {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
+
 
 /* =========================================
    9. FUNCTIONAL GRID

@@ -80,7 +80,33 @@ The **Pixel Phantoms Official Website** serves as the central digital hub for th
 
 ---
 
-## 📦 Installation & Local Setup
+## �️ Event View Tracking
+
+Our events page features a **client-side view counter** that tracks event popularity:
+
+**How It Works:**
+- Uses browser **localStorage** for persistent tracking
+- Increments when an event card is clicked
+- **3-second debounce** prevents spam clicks
+- Data persists across browser sessions
+
+**Features:**
+- 📊 Per-event tracking with unique IDs
+- 🔢 Human-readable formatting (1.2K, 1.5M views)
+- 🛡️ Prevents abuse with timestamp checks
+- 💾 Works completely offline (no backend required)
+
+**Data Storage Format:**
+```json
+{
+  "event-1": {"count": 123, "lastView": 1234567890},
+  "event-2": {"count": 456, "lastView": 1234567891}
+}
+```
+
+---
+
+## �📦 How to Install & Run Locally
 
 ### Prerequisites
 
@@ -324,6 +350,26 @@ Have an idea?
 
 ---
 
+## 🔧 Page Transitions (Issue #519)
+
+We've added an optional, performant page transition system using CSS + Vanilla JS to improve navigation UX across the site.
+
+Highlights:
+- Fade + subtle slide transitions (300ms default)
+- Respects users' prefers-reduced-motion setting
+- Works without JS (graceful degradation)
+- Optional loading indicator for slow fetches
+
+Files added/updated:
+- `css/animations.css` (new)
+- `js/page-transitions.js` (new)
+- Updated page wrappers: `index.html`, `about.html`, `contact.html`, `events.html`, `pages/*.html`
+- Init added to `js/main.js`
+
+To customize: change `--page-transition-duration` in CSS or pass options to `PageTransitions.init({ duration, type, scrollToTop, showLoadingIndicator })`.
+
+---
+
 ## 📌 License
 
 This project is licensed under the **MIT License**.
@@ -356,7 +402,43 @@ See the full license in the [`LICENSE`](LICENSE) file.
 
 ---
 
-## 🔥 Contributors
+## � GitHub Integration
+
+The contributors page now features **live GitHub integration** to showcase team member activity and contributions!
+
+### 📊 Contributor Stats
+- **Public Repos:** Displays total public repositories
+- **Followers & Following:** Shows GitHub network stats
+- **Cached Data:** Results cached for 24 hours in localStorage
+- **Rate Limiting:** 60 API requests/hour (unauthenticated)
+- **Graceful Fallbacks:** Shows cached data if API limits are exceeded
+
+### 📈 Contribution Graph
+- **Yearly Heatmap:** Powered by [github-calendar](https://github.com/IonicaBizau/github-calendar) library
+- **Responsive Design:** Mobile-friendly contribution visualization
+- **Activity Insights:** See daily contribution patterns at a glance
+
+### 🔧 Adding New Contributors
+To display GitHub stats for a contributor:
+1. Add `data-github="username"` attribute to contributor card
+2. Replace `username` with their actual GitHub username
+3. Stats will automatically populate on page load
+
+```html
+<div class="contributor-card" data-github="SujalTripathi">
+  <!-- Stats auto-populate here -->
+</div>
+```
+
+### ⚡ Technical Details
+- Uses **GitHub REST API** (no authentication required for public data)
+- Fetches: repos, followers, following, recent projects
+- **Error Handling:** Network failures, rate limits, missing profiles
+- **Performance:** Parallel API requests with caching strategy
+
+---
+
+## �🔥 Contributors
 
 Thanks to all the amazing contributors who make this project better every day! 💖
 
@@ -382,4 +464,12 @@ Thanks to all the amazing contributors who make this project better every day! �
 
 > Let’s build something amazing together! 🚀👻
 
+
+### Security: Contact form spam protection
+
+- The contact form includes a hidden honeypot field named `website` (bots often fill this).
+- Client-side rate limiting is enabled (5 seconds between submissions) using `localStorage`.
+- No server configuration or API keys are required.
+
+**Testing:** Fill the hidden `website` field or submit repeatedly to see the "Spam detected" and rate limit messages.
 

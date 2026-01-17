@@ -33,3 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+/**
+ * Creative Micro-Interactions for Theme Switch
+ * Final Redesign for SWOC 2026 Toggle
+ */
+const themeInput = document.getElementById('theme-switch');
+const themeLabel = document.querySelector('.theme-label');
+
+if (themeInput && themeLabel) {
+    themeInput.addEventListener('change', () => {
+        // Creative "Mechanical Shake" effect on toggle
+        themeLabel.style.animation = 'none';
+        void themeLabel.offsetWidth; // Trigger reflow
+        themeLabel.style.animation = 'switchShake 0.4s ease';
+        
+        // Add a 'click' sound effect via JS if you want to be extra creative
+        console.log("Theme Protocol: " + (themeInput.checked ? "Dark" : "Light") + " Mode Active");
+    });
+}
+
+// Add the keyframe for the shake to the JS (injected into CSS)
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes switchShake {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(0.9) rotate(5deg); }
+        50% { transform: scale(1.1) rotate(-5deg); }
+        75% { transform: scale(1.05) rotate(2deg); }
+    }
+`;
+document.head.append(style);

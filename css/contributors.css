@@ -2,7 +2,7 @@
 
 /* --- SECTION HEADER & STATS --- */
 .contributors-section {
-  padding: 60px 100px;
+  padding: 60px 50px;
 }
 
 .section-header {
@@ -11,7 +11,8 @@
 }
 
 .section-header h1 {
-  display: inline-block; /* shrink to content */
+  display: inline-block;
+  /* shrink to content */
   margin: 0 auto;
 }
 
@@ -149,50 +150,165 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 25px;
   margin-bottom: 40px;
-  padding-left: 145px;
-  padding-right: 145px;
+  padding: 0 28px;
 }
 
 /* Base Card Style */
 .contributor-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 25px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    will-change: transform, box-shadow;
 }
 
-.contributor-card:hover {
-  transform: translateY(-5px);
+/* Hover / Focus (keyboard) */
+.contributor-card:hover,
+.contributor-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 255, 163, 0.06);
+    border-color: rgba(0, 255, 163, 0.18); /* subtle green highlight */
+    outline: none;
+}
+
+.contributor-card:focus-visible {
+    outline: 2px solid #00ffa3; /* green accent focus */
+    outline-offset: 2px;
+}
+
+/* Active / Pressed */
+.contributor-card:active {
+    transform: translateY(-2px) scale(0.99);
+    transition-duration: 0.12s;
 }
 
 .contributor-card img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 5px;
-  border: 3px solid transparent;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 3px solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contributor-card:hover img,
+.contributor-card:focus-visible img {
+    transform: scale(1.03);
+    border-color: rgba(0, 255, 163, 0.85);
+    box-shadow: 0 6px 18px rgba(0, 255, 163, 0.06);
 }
 
 .cont-name {
-  font-weight: 700;
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1.125rem; /* 18px */
+    margin: 0;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+/* Stats and hierarchy */
+.contributor-card .github-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 16px;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.contributor-card .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: transform 0.25s ease;
+}
+
+.contributor-card:hover .stat-value,
+.contributor-card:focus-visible .stat-value {
+    transform: scale(1.06);
+}
+
+/* Contribution graph */
+.contributor-card .contribution-section {
+    margin-top: 18px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px;
+    background: rgba(0,0,0,0.02);
+}
+
+/* Links */
+.contributor-card .recent-repos .repo-list a {
+    color: #00ffa3;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .contributor-card {
+        padding: 16px;
+        gap: 12px;
+    }
+    .contributor-card img { width: 64px; height: 64px; }
+    .contributor-card:hover { transform: translateY(-2px); }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .contributor-card {
+        padding: 20px;
+        gap: 14px;
+    }
+    .contributor-card img { width: 72px; height: 72px; }
+}
+
+/* Entrance animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.contributor-card.animate {
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .contributor-card,
+    .contributor-card img,
+    .stat-value {
+        transition-duration: 0.01s !important;
+        transform: none !important;
+        animation-duration: 0.01s !important;
+        animation: none !important;
+    }
+}
+
 
 /* Base Badge Style */
 .cont-commits-badge {
@@ -210,6 +326,7 @@
   0% {
     background-position: -200%;
   }
+
   100% {
     background-position: 200%;
   }
@@ -225,23 +342,28 @@
   background: linear-gradient(145deg, rgba(255, 215, 0, 0.08), var(--card-bg));
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
 }
+
 .contributor-card.tier-gold:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
   transform: translateY(-8px) scale(1.02);
 }
+
 .contributor-card.tier-gold img {
   border-color: #ffd700;
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
+
 .contributor-card.tier-gold .cont-name {
   color: #ffd700;
   text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
+
 /* Gold Badge - Black Text */
 .contributor-card.tier-gold .cont-commits-badge {
   background: linear-gradient(90deg, #ffd700, #fff8dc, #ffd700);
   background-size: 200% auto;
-  color: #000000 !important; /* FORCE BLACK TEXT */
+  color: #000000 !important;
+  /* FORCE BLACK TEXT */
   -webkit-text-fill-color: #000000;
   border: 1px solid #ffd700;
   font-weight: 800;
@@ -255,23 +377,28 @@
   background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), var(--card-bg));
   box-shadow: 0 0 20px rgba(192, 192, 192, 0.25);
 }
+
 .contributor-card.tier-silver:hover {
   box-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
   transform: translateY(-8px) scale(1.02);
 }
+
 .contributor-card.tier-silver img {
   border-color: #c0c0c0;
   box-shadow: 0 0 15px rgba(192, 192, 192, 0.4);
 }
+
 .contributor-card.tier-silver .cont-name {
   color: #e0e0e0;
   text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
 }
+
 /* Silver Badge - Black Text */
 .contributor-card.tier-silver .cont-commits-badge {
   background: linear-gradient(90deg, #c0c0c0, #ffffff, #c0c0c0);
   background-size: 200% auto;
-  color: #000000 !important; /* FORCE BLACK TEXT */
+  color: #000000 !important;
+  /* FORCE BLACK TEXT */
   -webkit-text-fill-color: #000000;
   border: 1px solid #c0c0c0;
   font-weight: 800;
@@ -285,22 +412,27 @@
   background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), var(--card-bg));
   box-shadow: 0 0 20px rgba(205, 127, 50, 0.25);
 }
+
 .contributor-card.tier-bronze:hover {
   box-shadow: 0 0 30px rgba(205, 127, 50, 0.5);
   transform: translateY(-8px) scale(1.02);
 }
+
 .contributor-card.tier-bronze img {
   border-color: #cd7f32;
   box-shadow: 0 0 15px rgba(205, 127, 50, 0.4);
 }
+
 .contributor-card.tier-bronze .cont-name {
   color: #cd7f32;
 }
+
 /* Bronze Badge - Black Text */
 .contributor-card.tier-bronze .cont-commits-badge {
   background: linear-gradient(90deg, #cd7f32, #ffdab9, #cd7f32);
   background-size: 200% auto;
-  color: #000000 !important; /* FORCE BLACK TEXT */
+  color: #000000 !important;
+  /* FORCE BLACK TEXT */
   -webkit-text-fill-color: #000000;
   border: 1px solid #cd7f32;
   font-weight: 800;
@@ -312,10 +444,12 @@
 .contributor-card.tier-contributor {
   border: 1px solid var(--border-color);
 }
+
 .contributor-card.tier-contributor:hover {
   border-color: var(--accent-color);
   box-shadow: var(--shadow);
 }
+
 /* Default Badge - Normal Text */
 .contributor-card.tier-contributor .cont-commits-badge {
   color: var(--text-secondary);
@@ -331,20 +465,24 @@
   border: 2px solid #ffd700;
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
 }
+
 .modal-container.tier-gold .modal-header img {
   border-color: #ffd700;
 }
+
 .modal-container.tier-gold .modal-league-tag {
   border-color: #ffd700;
   color: #ffd700;
   background: rgba(255, 215, 0, 0.1);
 }
+
 .modal-container.tier-gold .primary-btn {
   background: linear-gradient(135deg, #ffd700, #ffa500);
   color: #000;
   border: none;
   font-weight: 800;
 }
+
 .modal-container.tier-gold .secondary-btn:hover {
   border-color: #ffd700;
   color: #ffd700;
@@ -355,20 +493,25 @@
   border: 2px solid #c0c0c0;
   box-shadow: 0 0 30px rgba(192, 192, 192, 0.2);
 }
+
 .modal-container.tier-silver .modal-header img {
   border-color: #c0c0c0;
 }
+
 .modal-container.tier-silver .modal-league-tag {
   border-color: #c0c0c0;
-  color: #c0c0c0; /* Silver Text */
+  color: #c0c0c0;
+  /* Silver Text */
   background: rgba(192, 192, 192, 0.1);
 }
+
 .modal-container.tier-silver .primary-btn {
   background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
   color: #000;
   border: none;
   font-weight: 800;
 }
+
 .modal-container.tier-silver .secondary-btn:hover {
   border-color: #c0c0c0;
   color: #c0c0c0;
@@ -379,20 +522,24 @@
   border: 2px solid #cd7f32;
   box-shadow: 0 0 30px rgba(205, 127, 50, 0.2);
 }
+
 .modal-container.tier-bronze .modal-header img {
   border-color: #cd7f32;
 }
+
 .modal-container.tier-bronze .modal-league-tag {
   border-color: #cd7f32;
   color: #cd7f32;
   background: rgba(205, 127, 50, 0.1);
 }
+
 .modal-container.tier-bronze .primary-btn {
   background: linear-gradient(135deg, #cd7f32, #a0522d);
   color: #fff;
   border: none;
   font-weight: 800;
 }
+
 .modal-container.tier-bronze .secondary-btn:hover {
   border-color: #cd7f32;
   color: #cd7f32;
@@ -532,16 +679,15 @@
   left: -150%;
   width: 120%;
   height: 200%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 100%);
   transform: rotate(20deg);
   pointer-events: none;
   opacity: 0;
 }
+
 .step-card:hover::before {
   animation: shine-sweep 0.9s ease forwards;
   opacity: 1;
@@ -562,12 +708,15 @@
 .steps-grid .step-card:nth-child(1) {
   animation-delay: 0.05s;
 }
+
 .steps-grid .step-card:nth-child(2) {
   animation-delay: 0.12s;
 }
+
 .steps-grid .step-card:nth-child(3) {
   animation-delay: 0.18s;
 }
+
 .steps-grid .step-card:nth-child(4) {
   animation-delay: 0.24s;
 }
@@ -578,6 +727,7 @@
     opacity: 0;
     transform: translateY(14px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -588,16 +738,19 @@
   0% {
     transform: translateX(-150%) rotate(20deg);
   }
+
   100% {
     transform: translateX(150%) rotate(20deg);
   }
 }
 
 @keyframes icon-float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -609,9 +762,11 @@
     animation: none !important;
     transition: none !important;
   }
+
   .step-card::before {
     animation: none !important;
   }
+
   .step-card i {
     animation: none !important;
   }
@@ -792,7 +947,453 @@
 .mt-large {
   margin-top: 60px;
 }
+
 .text-center {
   text-align: center;
   transform: translateY(-2px);
+}
+
+/* ================= GITHUB STATS INTEGRATION ================= */
+
+/* GitHub Stats Container */
+.github-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(0, 255, 163, 0.05), rgba(0, 204, 255, 0.05));
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 163, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.github-stats:hover {
+  border-color: rgba(0, 255, 163, 0.3);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Individual Stat Item */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin: 4px 0;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Loading Skeleton Animation */
+.stat-item.skeleton {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  50% {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Stat Error State */
+.stat-error {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.stat-error i {
+  margin-right: 8px;
+  color: #ff6b6b;
+}
+
+/* ================= RECENT REPOS SECTION ================= */
+
+.recent-repos {
+  background: #f6f8fa;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #e1e4e8;
+}
+
+/* Dark theme support */
+.hacker-theme .recent-repos,
+body.dark-mode .recent-repos {
+  background: rgba(30, 30, 30, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.recent-repos h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.repo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  transition: all 0.3s ease;
+}
+
+.hacker-theme .repo-item,
+body.dark-mode .repo-item {
+  background: rgba(50, 50, 50, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.repo-item:hover {
+  background: #f0f0f0;
+  border-color: var(--accent-color);
+  transform: translateX(4px);
+}
+
+.hacker-theme .repo-item:hover,
+body.dark-mode .repo-item:hover {
+  background: rgba(60, 60, 60, 0.7);
+}
+
+.repo-info a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.repo-info a:hover {
+  text-decoration: underline;
+}
+
+.repo-info p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.repo-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.repo-language {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.repo-stars {
+  color: #f1c40f;
+  font-weight: 600;
+}
+
+.no-repos {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 16px;
+}
+
+/* ================= CONTRIBUTION CALENDAR SECTION ================= */
+
+.contribution-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contribution-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.github-calendar {
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.loading-text {
+  color: #6c757d;
+  font-size: 13px;
+  padding: 20px 0;
+  display: block;
+  text-align: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.calendar-error {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 20px;
+}
+
+/* Customize github-calendar library colors for dark theme */
+.hacker-theme .calendar.calendar,
+body.dark-mode .calendar.calendar {
+  color: var(--text-primary);
+}
+
+.hacker-theme .calendar .contrib-legend .legend,
+body.dark-mode .calendar .contrib-legend .legend {
+  color: var(--text-secondary);
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+/* Large Laptop / Desktop */
+@media (min-width: 1445px) and (max-width: 2560px) {
+  .contributors-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 0 32px;
+  }
+
+  .contributors-section {
+    padding: 50px 32px;
+  }
+
+  .contributor-card img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Medium Laptop */
+@media (min-width: 1028px) and (max-width: 1444px) {
+  .contributors-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 32px;
+  }
+
+  .contributors-section {
+    padding: 50px 32px;
+  }
+
+  .contributor-card img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Small Laptop / Large Tablet */
+@media (min-width: 769px) and (max-width: 1027px) {
+  .contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 32px;
+  }
+
+  .contributors-section {
+    padding: 50px 32px;
+  }
+
+  .contributor-card img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .contributors-section {
+    padding: 42px 20px;
+  }
+
+  .contributors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+    padding: 0 18px;
+  }
+
+  .contributor-card {
+    padding: 18px;
+  }
+
+  .contributor-card img {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .contributors-section {
+    padding: 32px 12px;
+  }
+
+  .contributors-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .contributor-card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .contributor-card img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cont-name {
+    font-size: 1rem;
+    white-space: normal;
+  }
+
+  .cont-commits-badge {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+.github-stats {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+}
+
+.stat-icon {
+  font-size: 20px;
+}
+
+.stat-value {
+  font-size: 16px;
+}
+
+.stat-label {
+  font-size: 10px;
+}
+
+.recent-repos {
+  max-height: 200px;
+}
+
+.contribution-section {
+  padding: 12px;
+}
+
+.github-calendar {
+  padding: 4px 0;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .github-stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .stat-item {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .stat-icon {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  .stat-value {
+    font-size: 18px;
+    margin: 0 8px 0 0;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .recent-repos {
+    max-height: 150px;
+    padding: 10px;
+  }
+
+  .repo-item {
+    padding: 8px;
+  }
+
+  .repo-info a {
+    font-size: 13px;
+  }
+
+  .repo-info p {
+    font-size: 11px;
+  }
 }

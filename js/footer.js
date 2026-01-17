@@ -11,6 +11,7 @@ function renderFooter(basePath = '') {
 
   const footerHTML = `
     <footer class="site-footer dynamic-electronic">
+      <noscript class="no-js-note">Animations are disabled because JavaScript is turned off.</noscript>
       <div class="signal-grid" aria-hidden="true">
         <div class="signal-line horizontal"></div>
         <div class="signal-line vertical"></div>
@@ -59,15 +60,8 @@ function renderFooter(basePath = '') {
               </ul>
             </div>
 
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p class="copyright">&copy; 2025 Pixel Phantoms. All rights reserved.</p>
-                    <div class="footer-bottom-links">
-                        <a href="${basePath}pages/privacy.html" class="bottom-link">Privacy</a> | 
-                        <a href="${basePath}pages/terms.html" class="bottom-link">Terms</a> | 
-                        <a href="${basePath}pages/tutorials.html" class="bottom-link">Tutorials</a>
-                    </div>
-                </div>
+            
+
             <div class="link-group">
               <h3 class="link-group-title">Support</h3>
               <ul class="link-list">
@@ -108,6 +102,16 @@ function renderFooter(basePath = '') {
   `;
 
   placeholder.innerHTML = footerHTML;
+
+  // Load site-wide scripts dynamically (ensures scripts run after footer injection)
+  try {
+    const mainScript = document.createElement('script');
+    mainScript.src = basePath + 'js/main.js';
+    mainScript.defer = true;
+    document.body.appendChild(mainScript);
+  } catch (e) {
+    console.warn('Could not inject main.js dynamically', e);
+  }
 
   // ✅ Dynamic year set HERE (correct place)
   const yearSpan = document.getElementById('currentYear');

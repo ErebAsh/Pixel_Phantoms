@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="css/scroll-progress.css" />
     <link rel="stylesheet" href="css/back-to-top.css" />
+    <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/contact.css" />
     <link rel="stylesheet" href="css/home-gsap.css" />
     <link rel="stylesheet" href="css/cursor-effect.css" />
@@ -66,15 +67,16 @@
         text-transform: uppercase;
       }
 
-      /* Form Box */
-      .contact-box-wrapper {
-        max-width: 800px;
-        margin: 0 auto 60px;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        padding: 40px;
-        border-radius: 20px;
-      }
+     .contact-box-wrapper {
+  max-width: 1000px;   /* wider, matches page rhythm */
+  width: 100%;
+  margin: 0 auto 80px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 50px 60px;
+  border-radius: 20px;
+}
+
 
       input,
       textarea {
@@ -100,6 +102,24 @@
         cursor: pointer;
         text-transform: uppercase;
       }
+      .contact-box h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: var(--primary);
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.input-group {
+  margin-bottom: 25px;
+}
+
 
       /* Horizontal Info Cards */
       .info-grid-horizontal {
@@ -229,45 +249,64 @@
     </script>
 
     <main id="main-content" tabindex="-1">
+      <div class="page-transition-wrapper" data-page="contact">
       <div class="container">
         <section class="section-header">
           <h2>Get in Touch</h2>
           <p style="color: var(--text-dim)">Have a question? We'd love to hear from you.</p>
         </section>
 
-        <div class="contact-box-wrapper">
-          <form id="contact-form">
-            <h3>Send a Message</h3>
+       <div class="contact-container">
+  <div class="contact-box-wrapper">
+    <div class="contact-box">
+      <form id="contact-form">
+        <h3>Send a Message</h3>
 
-            <div class="input-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" placeholder="John Doe" required />
-            </div>
-
-            <div class="input-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" placeholder="john@example.com" required />
-            </div>
-
-            <div class="input-group">
-              <label for="message">Message</label>
-              <textarea
-                id="message"
-                placeholder="Type your message here..."
-                rows="5"
-                required
-              ></textarea>
-              <div style="text-align: right; font-size: 0.7rem; color: var(--text-dim)">
-                <span id="char-count">0</span>/500
-              </div>
-            </div>
-
-            <button type="submit" class="btn-submit">
-              Send Message <i class="fas fa-paper-plane" style="margin-left: 10px"></i>
-            </button>
-            <div id="form-feedback"></div>
-          </form>
+        <div class="input-group">
+          <label for="contact-name">Name</label>
+          <input type="text" id="contact-name" placeholder="John Doe" required minlength="2" maxlength="50">
+          <div class="error-message" id="name-error"></div>
         </div>
+
+        <div class="input-group">
+          <label for="contact-email">Email</label>
+          <input type="email" id="contact-email" placeholder="john@example.com" required>
+          <div class="error-message" id="email-error"></div>
+        </div>
+
+        <div class="input-group">
+          <label for="contact-message">Message</label>
+          <textarea
+            id="contact-message"
+            placeholder="Type your message here..."
+            required
+            minlength="10"
+            maxlength="500"
+          ></textarea>
+
+          <div class="char-counter">
+            <span id="char-count">0</span>/500
+          </div>
+
+          <div class="error-message" id="message-error"></div>
+        </div>
+
+        <!-- Honeypot -->
+        <div class="input-group honeypot-group" style="display:none;">
+          <label for="website" class="sr-only">Website</label>
+          <input type="text" id="website" name="website" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Send Message <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <div id="form-feedback" class="feedback-message" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
         <div class="info-grid-horizontal">
           <div class="info-card-modern">
@@ -285,7 +324,7 @@
           <div class="info-card-modern">
             <div class="icon-circle"><i class="fab fa-discord"></i></div>
             <h4>Community</h4>
-            <a href="#" class="discord-link" style="color: var(--text-color); text-decoration: none"
+            <a href="https://discord.com/invite/your-invite-link" class="discord-link" target="_blank" style="color: var(--text-color); text-decoration: none"
               >Join Discord</a
             >
           </div>
@@ -324,6 +363,7 @@
           </div>
         </div>
       </section>
+    </div>
     </main>
 
     <div id="footer-placeholder"></div>
@@ -332,6 +372,7 @@
       renderFooter('');
     </script>
 
+    <script src="js/page-transitions.js" defer></script>
     <script src="js/back-to-top.min.js"></script>
     <script src="js/theme.min.js"></script>
     <script src="js/cursor-effect.js"></script>

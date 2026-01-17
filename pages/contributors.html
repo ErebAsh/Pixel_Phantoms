@@ -1,43 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Phantoms | Contributors</title>
-    <link rel="icon" href="../assets/logo.png" />
-    <link rel="stylesheet" href="../css/scroll-progress.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/contributors.css" />
-    <link rel="stylesheet" href="../css/home-gsap.css" />
-    <link rel="stylesheet" href="../css/back-to-top.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body class="hacker-theme">
-    <div id="scroll-progress-container">
-      <div id="scroll-progress-bar"></div>
-    </div>
 
-    <!-- Skip to Content -->
-    <a href="#main-contributors" class="skip-to-content" id="skip-link">
-      <i class="fas fa-forward"></i> Skip to Main Content
-    </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Phantoms | Contributors</title>
+  <link rel="icon" href="../assets/logo.png" />
+  <link rel="stylesheet" href="../css/scroll-progress.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/contributors.css" />
+  <link rel="stylesheet" href="../css/home-gsap.css" />
+  <link rel="stylesheet" href="../css/back-to-top.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Navbar -->
-    <div id="navbar-placeholder"></div>
-    <script src="../js/navbar.js"></script>
-    <script>
-      renderNavbar('../');
-    </script>
+  <!-- GitHub Contribution Calendar -->
+  <link rel="stylesheet" href="https://unpkg.com/github-calendar@2.3.2/dist/github-calendar-responsive.css" />
+</head>
 
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="main-content" id="main-contributors" tabindex="-1">
+<body class="hacker-theme">
+  <div id="scroll-progress-container">
+    <div id="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Skip to Content -->
+  <a href="#main-contributors" class="skip-to-content" id="skip-link">
+    <i class="fas fa-forward"></i> Skip to Main Content
+  </a>
+
+  <!-- Navbar -->
+  <div id="navbar-placeholder"></div>
+  <script src="../js/navbar.js"></script>
+  <script>
+    renderNavbar('../');
+  </script>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content" id="main-contributors" tabindex="-1">
+    <div class="page-transition-wrapper" data-page="contributors">
       <!-- Page Header -->
       <section class="contributors-section">
         <header class="section-header">
@@ -103,15 +104,11 @@
         <section class="lead-container" aria-labelledby="project-lead">
           <h2 id="project-lead">Project Leadership</h2>
 
-          <div class="project-lead-card">
+          <div class="project-lead-card" data-github="sayeeg-11">
             <span class="lead-badge">👑 Founder & Project Lead</span>
 
-            <img
-              src="https://avatars.githubusercontent.com/u/1234567?v=4"
-              id="lead-avatar"
-              alt="Sayee Gosavi – Founder and Project Lead"
-              loading="lazy"
-            />
+            <img src="https://avatars.githubusercontent.com/u/1234567?v=4" id="lead-avatar"
+              alt="Sayee Gosavi – Founder and Project Lead" loading="lazy" />
 
             <h3 id="lead-name">Sayee Gosavi</h3>
 
@@ -121,14 +118,43 @@
             </p>
 
             <div class="lead-socials">
-              <a
-                href="https://github.com/sayeeg-11"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub profile of Sayee Gosavi"
-              >
+              <a href="https://github.com/sayeeg-11" target="_blank" rel="noopener noreferrer"
+                aria-label="GitHub profile of Sayee Gosavi">
                 <i class="fab fa-github"></i>
               </a>
+            </div>
+
+            <!-- GitHub Stats Section -->
+            <div class="github-stats">
+              <div class="stat-item">
+                <span class="stat-icon">📦</span>
+                <span class="stat-value" data-stat="repos">0</span>
+                <span class="stat-label">Repos</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">👥</span>
+                <span class="stat-value" data-stat="followers">0</span>
+                <span class="stat-label">Followers</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">🔗</span>
+                <span class="stat-value" data-stat="following">0</span>
+                <span class="stat-label">Following</span>
+              </div>
+            </div>
+
+            <!-- GitHub Contribution Calendar -->
+            <div class="contribution-section">
+              <h4>Contribution Activity</h4>
+              <div class="github-calendar" data-username="sayeeg-11">
+                Loading contributions...
+              </div>
+            </div>
+
+            <!-- Recent Repos -->
+            <div class="recent-repos">
+              <h4>Recent Projects</h4>
+              <div class="repo-list"></div>
             </div>
           </div>
         </section>
@@ -136,7 +162,7 @@
         <!-- ================= CONTRIBUTORS ================= -->
         <section aria-labelledby="top-contributors">
           <h2 id="top-contributors">Top Contributors</h2>
-          <div class="contributors-grid" id="contributors-grid" aria-live="polite"></div>
+          <div class="contributors-grid" id="contributors-grid" role="list" aria-label="Top contributors" aria-live="polite"></div>
           <div id="pagination-controls" class="pagination-container"></div>
         </section>
 
@@ -183,70 +209,76 @@
             </div>
           </div>
         </section>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <!-- ================= MODAL ================= -->
-    <div id="contributor-modal" class="modal-overlay" aria-hidden="true">
-      <div class="modal-container" role="dialog" aria-modal="true">
-        <button class="close-modal" onclick="closeModal()" aria-label="Close">&times;</button>
+  <!-- ================= MODAL ================= -->
+  <div id="contributor-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-modal="true">
+      <button class="close-modal" onclick="closeModal()" aria-label="Close">&times;</button>
 
-        <div class="modal-header">
-          <img id="modal-avatar" src="" alt="Contributor avatar" />
-          <h2 id="modal-name">Username</h2>
-          <p id="modal-id" class="modal-subtitle">ID: —</p>
-          <div id="modal-league-badge" class="modal-league-tag"></div>
+      <div class="modal-header">
+        <img id="modal-avatar" src="" alt="Contributor avatar" />
+        <h2 id="modal-name">Username</h2>
+        <p id="modal-id" class="modal-subtitle">ID: —</p>
+        <div id="modal-league-badge" class="modal-league-tag"></div>
+      </div>
+
+      <div class="modal-stats-row">
+        <div class="modal-stat">
+          <span class="stat-label">Rank</span>
+          <span class="stat-number" id="modal-rank">#—</span>
         </div>
-
-        <div class="modal-stats-row">
-          <div class="modal-stat">
-            <span class="stat-label">Rank</span>
-            <span class="stat-number" id="modal-rank">#—</span>
-          </div>
-          <div class="modal-stat">
-            <span class="stat-label">Points</span>
-            <span class="stat-number" id="modal-score">—</span>
-          </div>
-          <div class="modal-stat">
-            <span class="stat-label">PRs</span>
-            <span class="stat-number" id="modal-prs">—</span>
-          </div>
-          <div class="modal-stat">
-            <span class="stat-label">Commits</span>
-            <span class="stat-number" id="modal-commits">—</span>
-          </div>
+        <div class="modal-stat">
+          <span class="stat-label">Points</span>
+          <span class="stat-number" id="modal-score">—</span>
         </div>
-
-        <div class="modal-actions">
-          <a id="modal-pr-link" target="_blank" class="modal-btn primary-btn">
-            <i class="fas fa-code-branch"></i> View Pull Requests
-          </a>
-          <a id="modal-profile-link" target="_blank" class="modal-btn secondary-btn">
-            <i class="fab fa-github"></i> GitHub Profile
-          </a>
+        <div class="modal-stat">
+          <span class="stat-label">PRs</span>
+          <span class="stat-number" id="modal-prs">—</span>
+        </div>
+        <div class="modal-stat">
+          <span class="stat-label">Commits</span>
+          <span class="stat-number" id="modal-commits">—</span>
         </div>
       </div>
+
+      <div class="modal-actions">
+        <a id="modal-pr-link" target="_blank" class="modal-btn primary-btn">
+          <i class="fas fa-code-branch"></i> View Pull Requests
+        </a>
+        <a id="modal-profile-link" target="_blank" class="modal-btn secondary-btn">
+          <i class="fab fa-github"></i> GitHub Profile
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div id="footer-placeholder"></div>
-    <script src="../js/footer.js"></script>
-    <script>
-      const basePath = '../';
-      document.addEventListener('DOMContentLoaded', () => {
-        if (typeof renderFooter === 'function') {
-          renderFooter(basePath);
-        } else {
-          console.error(
-            'renderFooter function not found. Make sure footer.js is loaded correctly.'
-          );
-        }
-      });
-    </script>
+  <div id="footer-placeholder"></div>
+  <script src="../js/footer.js"></script>
+  <script>
+    const basePath = '../';
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderFooter === 'function') {
+        renderFooter(basePath);
+      } else {
+        console.error(
+          'renderFooter function not found. Make sure footer.js is loaded correctly.'
+        );
+      }
+    });
+  </script>
 
-    <!-- Scripts -->
-    <script src="../js/theme.js"></script>
-    <script src="../js/back-to-top.js"></script>
-    <script src="../js/contributors.js"></script>
-    <script src="../js/scroll-progress.js"></script>
-  </body>
+  <!-- Scripts -->
+  <script src="../js/page-transitions.js" defer></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/back-to-top.js"></script>
+  <script src="../js/contributors.js"></script>
+  <script src="../js/scroll-progress.js"></script>
+
+  <!-- GitHub Calendar Library -->
+  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+</body>
+
 </html>

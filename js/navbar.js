@@ -1,9 +1,19 @@
 function renderNavbar(basePath = '') {
+  // Helper to produce correct href regardless of current directory depth
+  function mkHref(rootPath) {
+    // If we're rendering from inside /pages/ (basePath === '../'), strip leading 'pages/'
+    // so links like 'pages/contributors.html' become 'contributors.html' (stay in pages/)
+    if (basePath === '../' && rootPath.startsWith('pages/')) {
+      return rootPath.replace(/^pages\//, '');
+    }
+    return `${basePath}${rootPath}`;
+  }
+
   const navbarHTML = `
     <nav class="navbar">
         <div class="logo">
-            <a href="${basePath}index.html" class="logo-link">
-                <img src="${basePath}assets/logo.png" alt="Pixel Phantoms Logo">
+            <a href="${mkHref('index.html')}" class="logo-link">
+                <img src="${mkHref('assets/logo.png')}" alt="Pixel Phantoms Logo">
                 <span>Pixel Phantoms</span>
             </a>
         </div>
@@ -15,12 +25,12 @@ function renderNavbar(basePath = '') {
         </button>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="${basePath}index.html">Home</a></li>
-            <li><a href="${basePath}about.html">About</a></li>
-            <li><a href="${basePath}events.html">Events</a></li>
-            <li><a href="${basePath}pages/contributors.html">Team</a></li>
-            <li><a href="${basePath}pages/login.html">Login</a></li>
-            <li><a href="${basePath}contact.html">Contact</a></li>
+            <li><a href="${mkHref('index.html')}">Home</a></li>
+            <li><a href="${mkHref('about.html')}">About</a></li>
+            <li><a href="${mkHref('events.html')}">Events</a></li>
+            <li><a href="${mkHref('pages/contributors.html')}">Team</a></li>
+            <li><a href="${mkHref('pages/login.html')}">Login</a></li>
+            <li><a href="${mkHref('contact.html')}">Contact</a></li>
             <li>
                 <div class="theme-toggle">
                     <input type="checkbox" id="theme-switch" class="theme-switch" aria-label="Toggle theme">

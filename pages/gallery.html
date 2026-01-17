@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/cursor-effect.css" />
     <link rel="stylesheet" href="../css/gallery.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="../css/back-to-top.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
@@ -37,6 +38,7 @@
     </script>
 
     <div class="main-content" id="main-gallery" tabindex="-1">
+      <div class="page-transition-wrapper" data-page="gallery">
       <section class="gallery-hero">
         <div class="hero-content">
           <h1>Moments & Memories</h1>
@@ -177,6 +179,7 @@
         </div>
       </section>
     </div>
+    </div>
 
     <div id="lightbox" class="lightbox">
       <span class="close-lightbox">&times;</span>
@@ -190,6 +193,7 @@
       renderFooter('../');
     </script>
 
+    <script src="../js/page-transitions.js" defer></script>
     <script src="../js/theme.js"></script>
     <script src="../js/cursor-effect.js"></script>
     <script src="../js/back-to-top.js"></script>
