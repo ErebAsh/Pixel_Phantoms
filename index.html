@@ -99,7 +99,7 @@
           <div class="container">
             <div class="section-header-terminal">
               <h2 id="focus-heading">
-                <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS_AREAS
+                <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS AREAS
               </h2>
               <div class="line-scanner" aria-hidden="true"></div>
             </div>
@@ -753,7 +753,8 @@
         const text = 'PIXEL_PHANTOMS';
         const target = document.getElementById('typewriter-text');
         if (target) {
-          let index = 0, isDeleting = false;
+          let index = 0,
+            isDeleting = false;
 
           function type() {
             const text = 'PIXEL_PHANTOMS';
@@ -767,15 +768,14 @@
             index = isDeleting ? index - 1 : index + 1;
             let typeSpeed = isDeleting ? 100 : 200;
 
-            if (!isDeleting && index === text.length) typeSpeed = 1000, isDeleting = true;
-            else if (isDeleting && index === 0) typeSpeed = 100, isDeleting = false;
+            if (!isDeleting && index === text.length) ((typeSpeed = 1000), (isDeleting = true));
+            else if (isDeleting && index === 0) ((typeSpeed = 100), (isDeleting = false));
 
             setTimeout(type, typeSpeed);
           }
 
           type();
         }
-
       });
     </script>
 
