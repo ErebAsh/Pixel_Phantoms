@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/cursor-effect.css" />
     <link rel="stylesheet" href="css/scroll-buttons.css" />
     <link rel="stylesheet" href="css/stats-widget.css" />
+    <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap"
@@ -99,7 +100,7 @@
           <div class="container">
             <div class="section-header-terminal">
               <h2 id="focus-heading">
-                <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS_AREAS
+                <i class="fas fa-crosshairs" aria-hidden="true"></i> FOCUS AREAS
               </h2>
               <div class="line-scanner" aria-hidden="true"></div>
             </div>
@@ -753,7 +754,8 @@
         const text = 'PIXEL_PHANTOMS';
         const target = document.getElementById('typewriter-text');
         if (target) {
-          let index = 0, isDeleting = false;
+          let index = 0,
+            isDeleting = false;
 
           function type() {
             const text = 'PIXEL_PHANTOMS';
@@ -767,20 +769,21 @@
             index = isDeleting ? index - 1 : index + 1;
             let typeSpeed = isDeleting ? 100 : 200;
 
-            if (!isDeleting && index === text.length) typeSpeed = 1000, isDeleting = true;
-            else if (isDeleting && index === 0) typeSpeed = 100, isDeleting = false;
+            if (!isDeleting && index === text.length) ((typeSpeed = 1000), (isDeleting = true));
+            else if (isDeleting && index === 0) ((typeSpeed = 100), (isDeleting = false));
 
             setTimeout(type, typeSpeed);
           }
 
           type();
         }
-
       });
     </script>
 
     <script src="js/page-transitions.js" defer></script>
     <script src="js/feedback-modal.js" defer></script>
+    <script src="js/keyboard-shortcuts.js" defer></script>
+
     <script>
       const currentPage = location.pathname.split('/').pop();
 
