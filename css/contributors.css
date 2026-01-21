@@ -1067,12 +1067,6 @@
   border: 1px solid #e1e4e8;
 }
 
-/* Dark theme support */
-.hacker-theme .recent-repos,
-body.dark-mode .recent-repos {
-  background: rgba(30, 30, 30, 0.5);
-  border-color: rgba(255, 255, 255, 0.1);
-}
 
 .recent-repos h4 {
   margin: 0 0 12px 0;
@@ -1098,12 +1092,6 @@ body.dark-mode .recent-repos {
   border-radius: 6px;
   border: 1px solid #e1e4e8;
   transition: all 0.3s ease;
-}
-
-.hacker-theme .repo-item,
-body.dark-mode .repo-item {
-  background: rgba(50, 50, 50, 0.5);
-  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .repo-item:hover {
@@ -1158,7 +1146,17 @@ body.dark-mode .repo-item:hover {
   font-size: 13px;
   padding: 16px;
 }
+.hacker-theme .recent-repos,
+body.dark-mode .recent-repos {
+  background: rgba(30, 30, 30, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
 
+.hacker-theme .repo-item,
+body.dark-mode .repo-item {
+  background: rgba(50, 50, 50, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
 /* ================= CONTRIBUTION CALENDAR SECTION ================= */
 
 .contribution-section {
