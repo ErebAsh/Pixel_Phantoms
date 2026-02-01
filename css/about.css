@@ -291,6 +291,10 @@ body.light-mode .motto-subtitle {
   padding: 35px 25px;
   text-align: center;
   border: 1px solid var(--border-color);
+  
+  transition: all 0.3s ease;
+  cursor: pointer;
+  animation: fadeInUp 0.6s ease-out backwards;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: default;
   position: relative;
@@ -310,7 +314,8 @@ body.light-mode .motto-subtitle {
 .activity-card:hover {
   transform: translateY(-8px);
   border-color: var(--accent-color);
-  box-shadow: 0 15px 35px rgba(0, 170, 255, 0.15);
+  box-shadow: 0 15px 30px rgba(0, 170, 255, 0.15);
+  border-top: 4px solid var(--accent-color);
 }
 
 /* In css/about.css */
@@ -331,13 +336,20 @@ body.light-mode .motto-subtitle {
   font-size: 1.5rem;
   transition: transform 0.3s ease;
 }
-
 .activity-card:hover .activity-icon {
   transform: scale(1.1) rotate(5deg);
 }
 
 .activity-card h3 {
   color: var(--text-primary);
+  font-size: 1.3rem;
+  margin: 0 0 10px 0;
+  transition: color 0.3s ease;
+}
+
+.activity-card:hover h3 {
+  /*color: var(--accent-color);*/
+  color:white;
   font-size: 1.25rem;
   margin-bottom: 12px;
   font-weight: 700;
@@ -579,7 +591,11 @@ body.light-mode .motto-subtitle {
 .social-link.github { background: #24292e; }
 .social-link.discord { background: #5865f2; }
 
-/* JOIN SECTION */
+[data-theme="light"] .member-card{
+  background: #ffffff;
+}
+
+/* ===== JOIN SECTION ===== */
 #join-section {
   padding: 80px 0;
   background: linear-gradient(to bottom, var(--bg-primary), var(--card-bg));
@@ -691,7 +707,27 @@ body.light-mode .motto-subtitle {
 }
 
 /* PREFERS REDUCED MOTION */
+
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-  .hero-section::before { animation: none; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-section::before,
+  .motto-banner,
+  .focus-card,
+  .activity-card,
+  .member-card,
+  .social-link {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .member-card:hover,
+  .social-link:hover {
+    transform: none;
+  }
 }
+

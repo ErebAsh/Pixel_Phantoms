@@ -209,12 +209,6 @@
   border-radius: 10px;
 }
 
-@media (max-width: 768px) {
-  .platform-card .action-btn {
-    width: 100%;
-    max-width: 220px;
-  }
-}
 
 .action-btn {
   background: transparent;
@@ -524,4 +518,11 @@
         padding: 10px 20px;
         font-size: 0.9rem;
     }
+}
+
+@media (max-width: 768px) {
+  .platform-card .action-btn {
+    width: 100%;
+    max-width: 220px;
+  }
 }
