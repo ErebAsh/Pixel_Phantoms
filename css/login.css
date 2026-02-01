@@ -274,6 +274,41 @@ body {
   opacity: 0.6;
 }
 
+/* --- PASSWORD TOGGLE ADDITIONS --- */
+
+/* 1. This is the container we added in the HTML */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* 2. Adjusting the input inside the wrapper */
+.password-wrapper input {
+  padding-right: 45px !important; /* Makes room for the icon */
+  margin: 5px 0 !important;      /* Cleans up the alignment */
+}
+
+/* 3. Styling the Eye Icon to fit the 'Hacker' theme */
+#togglePassword {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  color: var(--accent-color); /* Uses your existing neon blue */
+  font-size: 1rem;
+  z-index: 10;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+/* 4. Adding that glowing 'active' look on hover */
+#togglePassword:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 10px var(--accent-color);
+  transform: scale(1.1);
+}
+
 .error-message {
   color: #ff0055;
   font-size: 0.8rem;
@@ -432,13 +467,13 @@ body {
 .system-status-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 14px 18px;
   background: var(--bg-primary);
   border-radius: 10px;
   margin-bottom: 24px;
   border: 1px solid var(--border-color);
-  gap: 12px;
+  gap: 10px;
 }
 
 .status-indicator {
@@ -456,8 +491,8 @@ body {
   font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  flex-grow: 1;
-  text-align: right;
+  flex-grow: 0;
+  text-align: center;
 }
 
 @keyframes pulse {
@@ -659,3 +694,69 @@ body {
     flex-direction: column;
   }
 }
+
+/* --- 1. CRT SCREEN & SCANLINE EFFECTS --- */
+.screen-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+   
+    background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+    z-index: 10; 
+}
+
+.scanlines {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+ 
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 170, 255, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 11;
+    animation: scanlineMove 12s linear infinite;
+}
+
+@keyframes scanlineMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+/* --- 2. HUD CORNER BRACKETS --- */
+.corner-decoration {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-color);
+    opacity: 0.5;
+    z-index: 12;
+    pointer-events: none;
+}
+
+
+.top-left { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.top-right { top: 30px; right: 30px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: 30px; left: 30px; border-right: none; border-top: none; }
+.bottom-right { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+
+.login-text {
+    text-shadow: 0 0 8px var(--accent-color);
+    animation: terminalFlicker 4s infinite;
+    letter-spacing: 2px;
+}
+
+@keyframes terminalFlicker {
+    0%, 100% { opacity: 1; transform: skew(0deg); }
+    92% { opacity: 1; transform: skew(0deg); }
+    93% { opacity: 0.6; transform: skew(2deg); } /* Subtle glitch effect */
+    94% { opacity: 1; transform: skew(0deg); }
+    95% { opacity: 0.3; }
+    96% { opacity: 1; }
+}
+

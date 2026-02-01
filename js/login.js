@@ -437,6 +437,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- PASSWORD VISIBILITY TOGGLE ---
+    const togglePassword = document.getElementById('togglePassword');
+    
+    // We check if it exists so the script doesn't error out
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the icon classes (closed eye vs open eye)
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+            
+            // Optional: System log for the hacker theme
+            console.log(`System: Access key visibility set to ${type.toUpperCase()}`);
+        });
+    }
+
     // --- INITIALIZATION ---
     authForm.setAttribute('novalidate', 'true');
 
@@ -540,3 +559,4 @@ roleBtns.forEach(btn => {
         }
     });
 });
+
