@@ -286,3 +286,69 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+/* ================= HERO TEXT WAVE ANIMATION ================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const textElement = document.getElementById('wave-text');
+    if (!textElement) return;
+
+    const content = textElement.textContent.trim();
+    textElement.textContent = ''; 
+
+    [...content].forEach(char => {
+        const span = document.createElement('span');
+      
+        span.textContent = char === ' ' ? '\u00A0' : char; 
+        span.classList.add('wave-letter');
+        textElement.appendChild(span);
+    });
+});
+
+/* ================= EMOJI RATING LOGIC ================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form');
+    const beam = document.querySelector('.beam-container');
+
+    // 1. BEAM SPEED REACTION
+
+    document.querySelectorAll('input[name="experience"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (beam) {
+                
+                const speed = 5.5 - e.target.value; 
+                beam.style.animationDuration = `${speed}s`;
+            }
+        });
+    });
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            const selectedRating = document.querySelector('input[name="experience"]:checked');
+            if (selectedRating) {
+                console.log("Form submitted with Rating:", selectedRating.value);
+                // The rating value is now ready to be sent to your backend!
+            }
+        });
+    }
+});
+
+/* ================= TOGGLE / DESELECT EMOJI LOGIC ================= */
+document.addEventListener('DOMContentLoaded', () => {
+    let lastChecked = null;
+
+    document.querySelectorAll('input[name="experience"]').forEach(radio => {
+        radio.addEventListener('click', (e) => {
+            if (lastChecked === radio) {
+   
+                radio.checked = false;
+                lastChecked = null;
+       
+                const beam = document.querySelector('.beam-container');
+                if (beam) beam.style.animationDuration = '4s'; 
+            } else {
+             
+                lastChecked = radio;
+            }
+        });
+    });
+});
