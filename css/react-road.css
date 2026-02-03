@@ -1,4 +1,9 @@
-/* --- Roadmap Header Polish --- */
+.roadmap-section {
+  background: var(--bg-primary);
+  padding: var(--spacing-xxl) var(--spacing-xl);
+  font-family: var(--font-primary);
+  padding-top: calc(var(--spacing-xxl) + 60px);
+}
 
 .roadmap-section {
   background: var(--bg-primary);
