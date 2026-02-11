@@ -20,28 +20,42 @@
       rel="stylesheet"
     />
   </head>
+
   <body class="hacker-theme">
     <!-- Global Page Loader -->
-<div id="global-loader" class="global-loader hidden" aria-live="polite" aria-label="Loading page">
-  <div class="loader-spinner"></div>
-  <p class="loader-text">Loading...</p>
-</div>
+    <div
+      id="global-loader"
+      class="global-loader hidden"
+      role="status"
+      aria-live="polite"
+      aria-hidden="true"
+    >
+      <div class="loader-spinner" aria-hidden="true"></div>
+      <p class="loader-text">Loading...</p>
+    </div>
 
-    <div id="scroll-progress-container">
+    <div id="scroll-progress-container" aria-hidden="true">
       <div id="scroll-progress-bar"></div>
     </div>
 
-    <div id="cursor-highlight"></div>
+    <div id="cursor-highlight" aria-hidden="true"></div>
+
     <div id="navbar-placeholder"></div>
-    <script src="../js/navbar.js"></script>
-    <script>
-      renderNavbar('../');
+    <script src="../js/navbar.js" defer></script>
+    <script defer>
+      window.addEventListener('DOMContentLoaded', () => {
+        if (typeof renderNavbar === 'function') {
+          renderNavbar('../');
+        }
+      });
     </script>
 
-    <div class="main-content">
+    <main class="main-content" id="main-content">
       <section class="roadmap-header">
         <div class="header-content">
-          <h1 class="glitch-text" data-text="MOBILE_DEV_PROTOCOL">MOBILE_DEV_PROTOCOL</h1>
+          <h1 class="glitch-text" data-text="MOBILE_DEV_PROTOCOL">
+            MOBILE_DEV_PROTOCOL
+          </h1>
           <p class="subtitle">v1.0 // CROSS_PLATFORM_SEQUENCE</p>
         </div>
       </section>
@@ -49,25 +63,61 @@
       <div class="roadmap-wrapper">
         <div class="roadmap-spine"></div>
 
-        <div id="roadmap-content" class="roadmap-content">
+        <div
+          id="roadmap-content"
+          class="roadmap-content"
+          aria-live="polite"
+          aria-busy="true"
+        >
           <div class="loading-text">INITIALIZING_SIMULATOR...</div>
         </div>
       </div>
-    </div>
+    </main>
 
     <div id="footer-placeholder"></div>
-    <script src="../js/footer.js"></script>
-    <script>
-      renderFooter('../');
+    <script src="../js/footer.js" defer></script>
+    <script defer>
+      window.addEventListener('DOMContentLoaded', () => {
+        if (typeof renderFooter === 'function') {
+          renderFooter('../');
+        }
+      });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/back-to-top.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+      defer
+    ></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/back-to-top.js" defer></script>
+    <script src="../js/app-roadmap.js" defer></script>
+    <script src="../js/scroll-progress.js" defer></script>
+    <script src="../js/main.js" defer></script>
 
-    <script src="../js/app-roadmap.js"></script>
-    <script src="../js/scroll-progress.js"></script>
-    <script src="../js/main.js"></script>
+    <style>
+      #cursor-highlight {
+        pointer-events: none;
+      }
+    </style>
+
+    <script>
+      function showLoader() {
+        const loader = document.getElementById('global-loader');
+        loader.classList.remove('hidden');
+        loader.setAttribute('aria-hidden', 'false');
+        document.body.setAttribute('aria-busy', 'true');
+      }
+
+      function hideLoader() {
+        const loader = document.getElementById('global-loader');
+        loader.classList.add('hidden');
+        loader.setAttribute('aria-hidden', 'true');
+        document.body.removeAttribute('aria-busy');
+      }
+    </script>
   </body>
 </html>
