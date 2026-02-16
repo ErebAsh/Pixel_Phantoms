@@ -150,21 +150,21 @@ function loadMockData() {
   const activityList = document.getElementById('activity-list');
   if (activityList) {
     activityList.innerHTML = `
-            <div class="activity-item">
-                <div class="activity-marker"></div>
-                <div class="commit-msg"><span style="color: var(--accent-color)">Satoshi</span>: Optimized blockchain algorithm</div>
-                <div class="commit-date">2 hours ago</div>
-            </div>
-            <div class="activity-item">
-                <div class="activity-marker"></div>
-                <div class="commit-msg"><span style="color: var(--accent-color)">Ada</span>: Fixed layout bug in CSS</div>
-                <div class="commit-date">5 hours ago</div>
-            </div>
-            <div class="activity-item">
-                <div class="activity-marker"></div>
-                <div class="commit-msg"><span style="color: var(--accent-color)">System</span>: <strong>Deployed Mock Data Protocol</strong></div>
-                <div class="commit-date">Just now</div>
-            </div>
+           <div class="activity-item">
+    <div class="activity-marker bullet"></div>
+    <div class="commit-msg"><span style="color: var(--accent-color)">Satoshi</span>: Optimized blockchain algorithm</div>
+    <div class="commit-date">2 hours ago</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-marker bullet"></div>
+    <div class="commit-msg"><span style="color: var(--accent-color)">Ada</span>: Fixed layout bug in CSS</div>
+    <div class="commit-date">5 hours ago</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-marker bullet"></div>
+    <div class="commit-msg"><span style="color: var(--accent-color)">System</span>: <strong>Deployed Mock Data Protocol</strong></div>
+    <div class="commit-date">Just now</div>
+  </div>
         `;
   }
 }
@@ -787,6 +787,7 @@ async function fetchRecentActivity() {
   } catch (error) {
     console.log('Activity feed unavailable');
   }
+  } catch (error) { console.log('Activity feed unavailable'); }
 }
 
 // =================================================================
@@ -871,6 +872,18 @@ async function fetchGitHubStats(username) {
 
     console.log(`✅ Fetched fresh stats for ${username}:`, stats);
     return stats;
+      html_url: userData.html_url || `https://github.com/${username}`
+    };
+
+    // Cache the result
+    localStorage.setItem(cacheKey, JSON.stringify({
+      data: stats,
+      timestamp: Date.now()
+    }));
+
+    console.log(`✅ Fetched fresh stats for ${username}:`, stats);
+    return stats;
+
   } catch (error) {
     console.error(`Error fetching stats for ${username}:`, error);
 
@@ -926,6 +939,22 @@ async function fetchRecentRepos(username) {
       }
       return [];
     }
+    }
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${username}/repos?sort=updated&per_page=3`
+    );
+
+    // Handle rate limiting
+    if (response.status === 403) {
+      if (cached) {
+        const { data } = JSON.parse(cached);
+        return data;
+      }
+      return [];
+    }
 
     if (!response.ok) {
       return [];
@@ -953,6 +982,17 @@ async function fetchRecentRepos(username) {
     );
 
     return repoData;
+      updated_at: repo.updated_at
+    }));
+
+    // Cache the result
+    localStorage.setItem(cacheKey, JSON.stringify({
+      data: repoData,
+      timestamp: Date.now()
+    }));
+
+    return repoData;
+
   } catch (error) {
     console.error(`Error fetching repos for ${username}:`, error);
 
@@ -1011,6 +1051,7 @@ async function displayGitHubStats(card, username) {
   const [stats, repos] = await Promise.all([
     fetchGitHubStats(username),
     fetchRecentRepos(username),
+    fetchRecentRepos(username)
   ]);
 
   // Display stats
